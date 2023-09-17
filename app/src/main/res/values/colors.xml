@@ -8,6 +8,8 @@
     <color name="color_primary">#2AD1A9</color>
     <color name="color_primary_dark">#6350FF</color>
     <color name="color_accent">@color/color_primary</color>
+    <color name="textPrimary">#131313</color>
+    <color name="textHint">#717171</color>
 
 
     <!--    primary color-->
