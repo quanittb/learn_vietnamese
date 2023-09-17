@@ -1,5 +1,6 @@
 package com.mobiai.app.ui.fragment
 
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -7,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.LoginFragmentBinding
-import com.mobiai.databinding.SignUpFragmentBinding
+
 
 class SignInFragment : BaseFragment<LoginFragmentBinding>() {
 
@@ -25,7 +26,9 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
             addFragment(ForgotPasswordFragment.instance())
         }
         binding.btnSignIn.setOnClickListener {
-            SignIn()
+            if (isValidSignInDetails()){
+                SignIn()
+            }
         }
     }
 
@@ -45,6 +48,35 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
             }
         }
 }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+    private fun isValidSignInDetails(): Boolean {
+        // email trống
+        return if (binding.inputEmail.text.toString().trim().isEmpty()) {
+            showToast("Enter email")
+            false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString().trim()).matches()) {
+            showToast("Enter valid email")
+            false
+        } else if (binding.inputPass.text.toString().trim().isEmpty()) {
+            showToast("Enter password")
+            false
+        }/* else if (dem >= 2) {
+            showToast("wrong! wait 10 seconds,please ")
+            binding.buttonSignIn.setVisibility(View.GONE)
+            binding.progressBar.setVisibility(View.VISIBLE)
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                binding.buttonSignIn.setVisibility(View.VISIBLE)
+                binding.progressBar.setVisibility(View.GONE)
+                dem = 0
+            }, 10000)
+            false
+        }*/ else {
+            true
+        }
+    }
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): LoginFragmentBinding {
         return LoginFragmentBinding.inflate(inflater, container,false)
     }
