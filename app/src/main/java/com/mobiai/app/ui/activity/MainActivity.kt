@@ -9,6 +9,7 @@ import com.apero.inappupdate.AppUpdate
 import com.apero.inappupdate.AppUpdateManager
 import com.mobiai.R
 import com.mobiai.app.ui.fragment.HomeFragment
+import com.mobiai.app.ui.fragment.SignInFragment
 import com.mobiai.base.basecode.service.db.ModelTestDB
 import com.mobiai.base.basecode.service.db.testModelDB
 import com.mobiai.base.basecode.ui.activity.BaseActivity
@@ -44,7 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        addFragment(HomeFragment.instance())
+        addFragment(SignInFragment.instance())
     }
     override fun onResume() {
         super.onResume()
