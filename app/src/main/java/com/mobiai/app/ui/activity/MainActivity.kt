@@ -12,6 +12,7 @@ import com.mobiai.app.ui.fragment.HomeFragment
 import com.mobiai.app.ui.fragment.SignInFragment
 import com.mobiai.base.basecode.service.db.ModelTestDB
 import com.mobiai.base.basecode.service.db.testModelDB
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.activity.BaseActivity
 import com.mobiai.databinding.ActivityLanguageBinding
 import com.mobiai.databinding.ActivityMainBinding
@@ -45,7 +46,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        addFragment(SignInFragment.instance())
+        if (SharedPreferenceUtils.emailLogin!=null){
+            addFragment(HomeFragment.instance())
+        }
+        else{
+            addFragment(SignInFragment.instance())
+        }
     }
     override fun onResume() {
         super.onResume()

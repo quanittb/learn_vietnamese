@@ -72,6 +72,7 @@
 
                 <EditText
                     android:id="@+id/input_fist_name"
+                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_input_edt"
@@ -108,6 +109,7 @@
 
                 <EditText
                     android:id="@+id/input_Email"
+                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_input_edt"
@@ -145,11 +147,13 @@
 
                 <EditText
                     android:id="@+id/input_Pass"
+                    android:imeOptions="actionNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_input_edt"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:paddingStart="@dimen/_35sdp"
                     android:paddingEnd="@dimen/_10sdp"
                     android:textColor="@color/textPrimary"
@@ -181,6 +185,7 @@
 
                 <EditText
                     android:id="@+id/input_EnterPass"
+                    android:imeOptions="actionDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_input_edt"
@@ -188,6 +193,7 @@
                     android:hint="@string/enter_the_password"
                     android:paddingStart="@dimen/_35sdp"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:inputType="textPassword"
                     android:textColor="@color/textPrimary"
                     android:textColorHint="@color/textHint"
                     app:layout_constraintEnd_toEndOf="parent"
