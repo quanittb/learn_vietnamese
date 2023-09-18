@@ -32,4 +32,10 @@
     <string name="otp">OTP</string>
     <string name="enter_a_new_password">Enter a new password</string>
     <string name="change_password">Change password</string>
+    <string name="reminder">Reminder</string>
+    <string name="setting">Setting</string>
+    <string name="profile">Profile</string>
+    <string name="log_out">Log out</string>
+    <string name="daily_exercise_reminder">Daily Exercise Reminder</string>
+    <string name="repeat">Repeat</string>
 </resources>
