@@ -36,7 +36,6 @@ class ReminderFragment : BaseFragment<FragmentReminderBinding>() {
     override fun initView() {
         initData()
         onClick()
-        requireContext().sendBroadcast(intent)
     }
     fun initData(){
         alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
