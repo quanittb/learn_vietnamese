@@ -6,6 +6,16 @@ object SharedPreferenceUtils {
     private const val FIRST_OPEN_APP = "FIRST_OPEN_APP"
     private const val LANGUAGE = "LANGUAGE"
     private const val EMAIL = "EMAIL"
+    private const val ALARM = "ALARM"
+    private const val HOUR_ALARM = "HOUR_ALARM"
+    private const val MINUTE_ALARM = "MINUTE_ALARM"
+    private const val MONDAY_ALARM = "MONDAY_ALARM"
+    private const val TUESDAY_ALARM = "TUESDAY_ALARM"
+    private const val WEDNESDAY_ALARM = "WEDNESDAY_ALARM"
+    private const val THURSDAY_ALARM = "THURSDAY_ALARM"
+    private const val FRIDAY_ALARM = "FRIDAY_ALARM"
+    private const val SATURDAY_ALARM = "SATURDAY_ALARM"
+    private const val SUNDAY_ALARM = "SUNDAY_ALARM"
 
     var emailLogin: String?
         get() = App.instanceSharePreference.getValue(EMAIL, null)
@@ -18,5 +28,34 @@ object SharedPreferenceUtils {
     var languageCode: String?
         get() = App.instanceSharePreference.getValue(LANGUAGE, null)
         set(value) = App.instanceSharePreference.setValue(LANGUAGE, value)
-
+    var alarm: Boolean
+        get() = App.instanceSharePreference.getValueBool(ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(ALARM, value)
+    var hourAlarm: Int
+        get() = App.instanceSharePreference.getIntValue(HOUR_ALARM, 8)
+        set(value) = App.instanceSharePreference.setIntValue(HOUR_ALARM, value)
+    var minuteAlarm: Int
+        get() = App.instanceSharePreference.getIntValue(MINUTE_ALARM, 0)
+        set(value) = App.instanceSharePreference.setIntValue(MINUTE_ALARM, value)
+    var monday: Boolean
+        get() = App.instanceSharePreference.getValueBool(MONDAY_ALARM, true)
+        set(value) = App.instanceSharePreference.setValueBool(MONDAY_ALARM, value)
+    var tuesday: Boolean
+        get() = App.instanceSharePreference.getValueBool(TUESDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(TUESDAY_ALARM, value)
+    var wednesday: Boolean
+        get() = App.instanceSharePreference.getValueBool(WEDNESDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(WEDNESDAY_ALARM, value)
+    var thursday: Boolean
+        get() = App.instanceSharePreference.getValueBool(THURSDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(THURSDAY_ALARM, value)
+    var friday: Boolean
+        get() = App.instanceSharePreference.getValueBool(FRIDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(FRIDAY_ALARM, value)
+    var saturday: Boolean
+        get() = App.instanceSharePreference.getValueBool(SATURDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(SATURDAY_ALARM, value)
+    var sunday: Boolean
+        get() = App.instanceSharePreference.getValueBool(SUNDAY_ALARM, false)
+        set(value) = App.instanceSharePreference.setValueBool(SUNDAY_ALARM, value)
 }

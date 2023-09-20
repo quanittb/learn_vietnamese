@@ -12,7 +12,21 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         }
     }
     override fun initView() {
+        onClick()
+    }
+    fun onClick(){
+        binding.btnReminder.setOnClickListener {
+            addFragment(ReminderFragment.instance())
+        }
+        binding.btnProfile.setOnClickListener {
+            addFragment(ProfileFragment.instance())
+        }
+        binding.btnChangePassword.setOnClickListener {
+            
+        }
+        binding.btnLogout.setOnClickListener {
 
+        }
     }
     override fun getBinding(
         inflater: LayoutInflater,

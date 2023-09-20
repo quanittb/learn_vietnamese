@@ -38,4 +38,24 @@
     <string name="log_out">Log out</string>
     <string name="daily_exercise_reminder">Daily Exercise Reminder</string>
     <string name="repeat">Repeat</string>
+    <string name="it_time_to_learn">It\'s time to learn!</string>
+    <string name="_mon">Mon</string>
+    <string name="_tue">Tue</string>
+    <string name="_wed">Wed</string>
+    <string name="_thu">Thu</string>
+    <string name="_fri">Fri</string>
+    <string name="_sat">Sat</string>
+    <string name="_sun">Sun</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="save">Save</string>
+    <string name="time">Time</string>
+    <string name="time_format">%02d</string>
+    <string name="total_ruby">Total Ruby</string>
+    <string name="total_xp">Total XP</string>
 </resources>
