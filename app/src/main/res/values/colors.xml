@@ -430,4 +430,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue_primary">#482FF7</color>
     <color name="gray_text">#78828A</color>
+    <color name="color_text_disable_gift">#B5B5C3</color>
 </resources>
