@@ -13,7 +13,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
     override fun initView() {
-        addFragment(SettingFragment.instance())
+        addFragment(PronunciationFragment.instance())
     }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHomeBinding {

@@ -8,6 +8,7 @@ import com.ads.control.admob.AppOpenManager
 import com.apero.inappupdate.AppUpdate
 import com.apero.inappupdate.AppUpdateManager
 import com.mobiai.R
+import com.mobiai.app.ui.fragment.GiftFragment
 import com.mobiai.app.ui.fragment.HomeFragment
 import com.mobiai.app.ui.fragment.SignInFragment
 import com.mobiai.base.basecode.service.db.ModelTestDB
@@ -46,12 +47,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        if (SharedPreferenceUtils.emailLogin!=null){
-            addFragment(HomeFragment.instance())
-        }
-        else{
-            addFragment(SignInFragment.instance())
-        }
+        addFragment(GiftFragment.instance())
+
+//        if (SharedPreferenceUtils.emailLogin!=null){
+//            addFragment(HomeFragment.instance())
+//        }
+//        else{
+//            addFragment(SignInFragment.instance())
+//        }
     }
     override fun onResume() {
         super.onResume()
