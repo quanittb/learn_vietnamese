@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.adapter.PronunciationAdapter
-import com.mobiai.app.ui.pronunciation.Pronunciation
+import com.mobiai.app.ui.dataclass.Pronunciation
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentPronunciationBinding
 
