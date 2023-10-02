@@ -63,4 +63,7 @@
     <string name="star_the_test">Star the test</string>
     <string name="accumulate_points_to_receive_interesting_gifts">Accumulate points to receive interesting gifts.</string>
     <string name="receive_gift">Receive gift</string>
+    <string name="successfully_received_gifts">Successfully received gifts!</string>
+    <string name="_continue">Continue</string>
+    <string name="rank">Rank</string>
 </resources>
