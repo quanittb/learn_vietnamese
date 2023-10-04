@@ -22,13 +22,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun initView() {
         initAdapter()
-        //addFragment(PronunciationFragment.instance())
     }
 
     private fun initAdapter(){
         initData()
         lessonAdapter =  LessonAdapter(requireContext(), object : LessonAdapter.OnLessonClickListener{
             override fun onClickItemListener(lesson: Lesson?) {
+                addFragment(LessonFragment.instance())
             }
         })
         lessonAdapter.setItems(listLesson)
