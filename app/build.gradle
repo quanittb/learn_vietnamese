@@ -113,6 +113,7 @@ dependencies {
     //lottie animation
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 
 
     //apero update inapp

@@ -47,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        addFragment(GiftFragment.instance())
+        addFragment(HomeFragment.instance())
 
 //        if (SharedPreferenceUtils.emailLogin!=null){
 //            addFragment(HomeFragment.instance())
