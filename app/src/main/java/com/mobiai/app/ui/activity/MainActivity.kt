@@ -8,6 +8,7 @@ import com.ads.control.admob.AppOpenManager
 import com.apero.inappupdate.AppUpdate
 import com.apero.inappupdate.AppUpdateManager
 import com.mobiai.R
+import com.mobiai.app.ui.fragment.BottomNavigationFragment
 import com.mobiai.app.ui.fragment.GiftFragment
 import com.mobiai.app.ui.fragment.HomeFragment
 import com.mobiai.app.ui.fragment.RankFragment
@@ -48,7 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        addFragment(HomeFragment.instance())
+        addFragment(BottomNavigationFragment.instance())
 
 //        if (SharedPreferenceUtils.emailLogin!=null){
 //            addFragment(HomeFragment.instance())
