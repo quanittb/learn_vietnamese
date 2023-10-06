@@ -23,11 +23,13 @@
         app:menu="@menu/menu_bottom_navigation"
         app:labelVisibilityMode="labeled"
         android:background="@color/white"
-        app:itemTextColor="@color/bottom_color_nav"
+        app:itemTextColor="@color/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:itemIconTint="@color/bottom_color_nav"
+        app:itemIconTint="@color/bottom_nav"
         android:paddingHorizontal="@dimen/_16ssp"
+        app:backgroundTint="@color/white"
+        android:backgroundTintMode="src_over"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

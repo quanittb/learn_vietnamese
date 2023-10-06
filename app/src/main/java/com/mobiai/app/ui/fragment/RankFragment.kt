@@ -1,6 +1,8 @@
 package com.mobiai.app.ui.fragment
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -9,6 +11,7 @@ import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.adapter.RankAdapter
 import com.mobiai.app.ui.dataclass.Gift
 import com.mobiai.app.ui.dataclass.Rank
+import com.mobiai.app.ui.dialog.OutTopDialog
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentRankBinding
 
@@ -19,6 +22,7 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
        }
    }
     private var  rankAdapter : RankAdapter? = null
+    private var outTopDialog : OutTopDialog? = null
 
     override fun initView() {
         initData()
@@ -32,6 +36,7 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
         listRank.add(Rank("","ABCDG",4000))
         listRank.add(Rank("","ABCDH",3000))
         listRank.add(Rank("","ABCDi",2000))
+        listRank.sortByDescending { it.experience }
         binding.recyclerViewRank.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.recyclerViewRank.addItemDecoration(ItemSpacingDecoration(7,8))
         rankAdapter?.setItems(listRank)
@@ -40,5 +45,11 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentRankBinding {
         return FragmentRankBinding.inflate(inflater,container,false)
+    }
+    private fun showDialog(){
+        if(outTopDialog == null){
+            outTopDialog = OutTopDialog(requireContext())
+        }
+        outTopDialog?.show()
     }
 }

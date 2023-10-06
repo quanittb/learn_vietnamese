@@ -70,4 +70,6 @@
     <string name="pronounce">Pronounce</string>
     <string name="gift">Gift</string>
     <string name="start_your_journey_now">Start your journey now!</string>
+    <string name="you_have_fallen_out_of_the_top_10">You have fallen out of the top 10!</string>
+    <string name="try_to_get_back_to_the_top_position">Try to get back to the top position</string>
 </resources>
