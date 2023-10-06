@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,13 +7,14 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="#CBC7DE">
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/_20sdp"
         android:paddingHorizontal="@dimen/_14sdp"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="#CBC7DE">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,10 +89,17 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_gift"/>
     </LinearLayout>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@id/title"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_gift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp"
+        android:padding="@dimen/_5ssp"
+        app:layout_constraintTop_toTopOf="@id/view"
+        android:background="@drawable/bg_rcv_home"
         tools:listitem="@layout/item_gift"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
