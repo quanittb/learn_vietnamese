@@ -3,10 +3,8 @@ package com.mobiai.app.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mobiai.app.ui.dataclass.Gift
-import com.mobiai.app.ui.dataclass.Pronunciation
+import com.mobiai.app.model.Gift
 import com.mobiai.app.ui.dialog.SuccessGiftDialog
-import com.mobiai.app.ui.dialog.TimeDialog
 import com.mobiai.app.utils.Announcer
 import com.mobiai.base.basecode.adapter.BaseAdapter
 import com.mobiai.databinding.ItemGiftBinding

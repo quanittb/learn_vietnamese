@@ -3,7 +3,7 @@ package com.mobiai.app.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mobiai.app.ui.dataclass.Pronunciation
+import com.mobiai.app.model.Pronunciation
 import com.mobiai.app.utils.Announcer
 import com.mobiai.base.basecode.adapter.BaseAdapter
 import com.mobiai.databinding.ItemPronunciationBinding

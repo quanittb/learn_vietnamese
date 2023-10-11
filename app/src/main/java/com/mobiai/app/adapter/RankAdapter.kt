@@ -3,7 +3,7 @@ package com.mobiai.app.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mobiai.app.ui.dataclass.Rank
+import com.mobiai.app.model.Rank
 import com.mobiai.base.basecode.adapter.BaseAdapter
 import com.mobiai.databinding.ItemRankBinding
 
