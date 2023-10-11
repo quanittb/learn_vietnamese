@@ -1,16 +1,11 @@
 package com.mobiai.app.ui.fragment
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.mobiai.app.adapter.GiftAdapter
 import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.adapter.RankAdapter
-import com.mobiai.app.ui.dataclass.Gift
-import com.mobiai.app.ui.dataclass.Rank
+import com.mobiai.app.model.Rank
 import com.mobiai.app.ui.dialog.OutTopDialog
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentRankBinding

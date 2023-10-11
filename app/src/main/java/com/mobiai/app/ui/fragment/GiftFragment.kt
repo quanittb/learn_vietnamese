@@ -2,14 +2,10 @@ package com.mobiai.app.ui.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobiai.app.adapter.GiftAdapter
 import com.mobiai.app.adapter.ItemSpacingDecoration
-import com.mobiai.app.adapter.PronunciationAdapter
-import com.mobiai.app.ui.dataclass.Gift
-import com.mobiai.app.ui.dataclass.Pronunciation
+import com.mobiai.app.model.Gift
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentGiftBinding
 

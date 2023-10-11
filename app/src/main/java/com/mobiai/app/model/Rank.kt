@@ -1,4 +1,4 @@
-package com.mobiai.app.ui.dataclass
+package com.mobiai.app.model
 
 data class Rank(
     val imgUrl : String,
