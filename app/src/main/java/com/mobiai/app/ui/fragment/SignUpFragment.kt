@@ -45,7 +45,7 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
         ref.setValue(user)
         createUser(email,password)
         SharedPreferenceUtils.emailLogin = email
-        replaceFragment(HomeFragment.instance())
+        replaceFragment(BottomNavigationFragment.instance())
     }
    private fun getUserRealtime(){
         val db = FirebaseDatabase.getInstance()

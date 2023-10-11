@@ -41,7 +41,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
         .addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
                 // Sign in success, update UI with the signed-in user's information
-                replaceFragment(HomeFragment.instance())
+                replaceFragment(BottomNavigationFragment.instance())
                 SharedPreferenceUtils.emailLogin = email
             } else {
                 Toast.makeText(requireContext(),"Fail!",Toast.LENGTH_SHORT).show()
