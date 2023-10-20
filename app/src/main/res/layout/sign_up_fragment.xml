@@ -139,7 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
-
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="@+id/ctn_Email"
                 app:layout_constraintStart_toStartOf="@+id/ctn_Email"
@@ -225,6 +224,7 @@
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintTop_toBottomOf="@id/ctn_EnterPass" />
             <LinearLayout
+                android:id="@+id/ll_already"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_18sdp"
@@ -250,8 +250,14 @@
                     android:text="@string/sign_in"
                     android:textSize="@dimen/_12ssp"
                     />
-            </LinearLayout>
 
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_6sdp"
+                app:layout_constraintTop_toBottomOf="@id/ll_already"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="@dimen/_200sdp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

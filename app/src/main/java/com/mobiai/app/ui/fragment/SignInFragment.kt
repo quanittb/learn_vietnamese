@@ -1,11 +1,17 @@
 package com.mobiai.app.ui.fragment
 
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.mobiai.base.basecode.storage.SharedPreferenceUtils
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.model.User
+import com.mobiai.app.ui.fragment.SignUpFragment.Companion.EMAIL
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.LoginFragmentBinding
 
@@ -33,20 +39,29 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
     }
 
     private fun SignIn(){
-        val auth = FirebaseAuth.getInstance()
         val email = binding.inputEmail.text.toString().trim()
         val password = binding.inputPass.text.toString().trim()
-
-        auth.signInWithEmailAndPassword(email, password)
-        .addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                replaceFragment(BottomNavigationFragment.instance())
-                SharedPreferenceUtils.emailLogin = email
-            } else {
-                Toast.makeText(requireContext(),"Fail!",Toast.LENGTH_SHORT).show()
+        val db = FirebaseDatabase.getInstance()
+        val ref = db.getReference(SignUpFragment.USER)
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
+                    val user = userSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        if (user.email == email && user.pass == password) {
+                            replaceFragment(BottomNavigationFragment.instance())
+                        }
+                    }
+                }
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+
 }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
