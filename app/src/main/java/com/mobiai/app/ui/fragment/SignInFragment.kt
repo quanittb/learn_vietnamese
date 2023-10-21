@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobiai.app.model.User
 import com.mobiai.app.ui.fragment.SignUpFragment.Companion.EMAIL
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.LoginFragmentBinding
 
@@ -50,6 +51,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {
                         if (user.email == email && user.pass == password) {
+                            SharedPreferenceUtils.emailLogin = user.email
                             replaceFragment(BottomNavigationFragment.instance())
                         }
                     }

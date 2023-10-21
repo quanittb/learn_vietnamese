@@ -51,7 +51,6 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
         else{
             showToast("your email exists !")
         }
-
     }
    private fun getUserRealtime():Boolean{
        var isExist = true
