@@ -63,7 +63,7 @@ class ChangePasswordFragment : BaseFragment<ChangePasswordFragmentBinding>() {
                                 showToast("change password success!")
                                 val fragmentManager = requireActivity().supportFragmentManager
                                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                                addFragment(HomeFragment.instance())
+                                addFragment(BottomNavigationFragment.instance())
                                 binding.frLoading.gone()
                             }
                         }
