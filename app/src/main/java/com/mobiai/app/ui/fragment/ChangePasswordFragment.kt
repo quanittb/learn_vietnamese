@@ -5,12 +5,20 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.mobiai.app.model.User
+import com.mobiai.app.utils.gone
+import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.ChangePasswordFragmentBinding
@@ -35,45 +43,42 @@ class ChangePasswordFragment : BaseFragment<ChangePasswordFragmentBinding>() {
 
     }
 
-
-    // Hàm thay đổi mật khẩu
-    private fun changePassword(newPassword: String, onComplete: (Boolean, String) -> Unit) {
-        val user = FirebaseAuth.getInstance().currentUser
-
-        // Kiểm tra xem người dùng đã đăng nhập chưa
-        if (user != null) {
-            user.updatePassword(newPassword)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        onComplete(true, "Mật khẩu đã được thay đổi thành công")
-                    } else {
-                        onComplete(false, "Lỗi khi thay đổi mật khẩu: ${task.exception?.message}")
-                    }
-                }
-        } else {
-            onComplete(false, "Người dùng chưa đăng nhập")
-        }
-    }
-
-
     private fun changePass(){
         val passwordOld = binding.inputOldPass.text.toString().trim()
         val passwordNew = binding.inputNewPass.text.toString().trim()
         if (isValidSignInDetails()){
-            changePassword("Mật khẩu mới") { success, message ->
-                if (success) {
-                    // Xử lý khi thay đổi mật khẩu thành công
-                    Log.d(TAG, "changePass:1 $message")
-                } else {
-                    Log.d(TAG, "changePass: 2 $message")
+            val db = FirebaseDatabase.getInstance()
+            val ref = db.getReference(SignUpFragment.USER)
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                    // Xử lý khi thay đổi mật khẩu thất bại
+                    for (userSnapshot in dataSnapshot.children) {
+                        // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
+                        val user = userSnapshot.getValue(User::class.java)
+                        if (user != null) {
+                            if (user.email == SharedPreferenceUtils.emailLogin && user.pass == passwordOld) {
+                                binding.frLoading.visible()
+                                val userUpdate = User(SharedPreferenceUtils.emailLogin!!,user.name,passwordNew)
+                                userSnapshot.key?.let { ref.child(it).setValue(userUpdate) }
+                                showToast("change password success!")
+                                val fragmentManager = requireActivity().supportFragmentManager
+                                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                                addFragment(HomeFragment.instance())
+                                binding.frLoading.gone()
+                            }
+                        }
+                    }
                 }
-            }
-            // SharedPreferenceUtils.emailLogin?.let { fireBasePasswordChange(it,passwordOld,passwordNew) }
-        }
-    }
 
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w("TAG", "Failed to read value.", error.toException())
+                }
+            })
+        }
+
+
+    }
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
