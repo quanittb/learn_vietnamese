@@ -5,7 +5,7 @@
     <color name="bottom_sheet_color">#F6F6F6</color>
     <color name="text_disable">#9CA3AF</color>
     <color name="color_toast">#1F2937</color>
-    <color name="color_primary">#2AD1A9</color>
+    <color name="color_primary">#482FF7</color>
     <color name="color_primary_dark">#6350FF</color>
     <color name="color_accent">@color/color_primary</color>
     <color name="textPrimary">#131313</color>
