@@ -5,13 +5,12 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.App
 import com.mobiai.app.model.User
-import com.mobiai.app.ui.fragment.SignUpFragment.Companion.EMAIL
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.LoginFragmentBinding
@@ -43,7 +42,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
         val email = binding.inputEmail.text.toString().trim()
         val password = binding.inputPass.text.toString().trim()
         val db = FirebaseDatabase.getInstance()
-        val ref = db.getReference(SignUpFragment.USER)
+        val ref = db.getReference(App.USER)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {

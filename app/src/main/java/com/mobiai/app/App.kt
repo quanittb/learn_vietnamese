@@ -15,6 +15,12 @@ import com.mobiai.base.basecode.storage.StorageCommon
 class App : AdsMultiDexApplication() {
 
     companion object {
+        val USER = "user"
+        val GIFT = "gift"
+        val LESSON = "lesson"
+        val QUESTION = "question"
+        val TOPIC = "topic"
+
         private var instance: App? = null
         private var storageCommon: StorageCommon? = null
 

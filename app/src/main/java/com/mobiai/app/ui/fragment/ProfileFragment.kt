@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.App
 import com.mobiai.app.model.User
 import com.mobiai.app.permission.StoragePermissionUtils
 import com.mobiai.app.utils.AppStorageManager.createInternalFolder
@@ -48,7 +49,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun initView() {
         db = FirebaseDatabase.getInstance()
-        ref = db.getReference(SignUpFragment.USER)
+        ref = db.getReference(App.USER)
         PACK_FILE_DIR = createInternalFolder(requireContext(), SharedPreferenceUtils.emailLogin!!)
         Log.d("TAG", "initView: $PACK_FILE_DIR")
         binding.btnClose.setOnClickListener {
