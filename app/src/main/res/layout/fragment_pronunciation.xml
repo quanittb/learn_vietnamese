@@ -53,6 +53,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
         tools:listitem="@layout/item_pronunciation" />
 
 </LinearLayout>

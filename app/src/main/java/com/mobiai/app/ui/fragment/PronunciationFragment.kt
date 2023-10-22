@@ -14,54 +14,65 @@ companion object{
     fun instance() : PronunciationFragment{
         return newInstance(PronunciationFragment::class.java)
     }
-    private var  pronunciationAdapter : PronunciationAdapter? = null
 }
+    private var  pronunciationAdapter : PronunciationAdapter? = null
+
     override fun initView() {
         initData()
     }
     fun initData() {
         pronunciationAdapter = PronunciationAdapter(requireContext())
-        var listPronunciation : ArrayList<Pronunciation> = arrayListOf()
-        listPronunciation.add(Pronunciation("Aa","nan"))
-        listPronunciation.add(Pronunciation("Ăă","năn"))
-        listPronunciation.add(Pronunciation("Ââ","nân"))
-        listPronunciation.add(Pronunciation("Bb","bờ"))
-        listPronunciation.add(Pronunciation("Cc","cờ"))
-        listPronunciation.add(Pronunciation("Dd","dê"))
-        listPronunciation.add(Pronunciation("Đđ","đê"))
-        listPronunciation.add(Pronunciation("Ee","em"))
-        listPronunciation.add(Pronunciation("Êê","êm"))
-        listPronunciation.add(Pronunciation("Aa","nan"))
-        listPronunciation.add(Pronunciation("Ăă","năn"))
-        listPronunciation.add(Pronunciation("Ââ","nân"))
-        listPronunciation.add(Pronunciation("Bb","bờ"))
-        listPronunciation.add(Pronunciation("Cc","cờ"))
-        listPronunciation.add(Pronunciation("Dd","dê"))
-        listPronunciation.add(Pronunciation("Đđ","đê"))
-        listPronunciation.add(Pronunciation("Ee","em"))
-        listPronunciation.add(Pronunciation("Êê","êm"))
-        listPronunciation.add(Pronunciation("Aa","nan"))
-        listPronunciation.add(Pronunciation("Ăă","năn"))
-        listPronunciation.add(Pronunciation("Ââ","nân"))
-        listPronunciation.add(Pronunciation("Bb","bờ"))
-        listPronunciation.add(Pronunciation("Cc","cờ"))
-        listPronunciation.add(Pronunciation("Dd","dê"))
-        listPronunciation.add(Pronunciation("Đđ","đê"))
-        listPronunciation.add(Pronunciation("Ee","em"))
-        listPronunciation.add(Pronunciation("Êê","êm"))
-        listPronunciation.add(Pronunciation("Aa","nan"))
-        listPronunciation.add(Pronunciation("Ăă","năn"))
-        listPronunciation.add(Pronunciation("Ââ","nân"))
-        listPronunciation.add(Pronunciation("Bb","bờ"))
-        listPronunciation.add(Pronunciation("Cc","cờ"))
-        listPronunciation.add(Pronunciation("Dd","dê"))
-        listPronunciation.add(Pronunciation("Đđ","đê"))
-        listPronunciation.add(Pronunciation("Ee","em"))
-        listPronunciation.add(Pronunciation("Êê","êm"))
-        pronunciationAdapter?.setItems(listPronunciation)
-        binding.recyclerViewPronun.layoutManager = GridLayoutManager(requireContext(),3)
-        binding.recyclerViewPronun.addItemDecoration(ItemSpacingDecoration(7,8))
-        binding.recyclerViewPronun.adapter = pronunciationAdapter
+        val listPronunciation : ArrayList<Pronunciation> = arrayListOf()
+        runBackground({
+            listPronunciation.add(Pronunciation("Aa","nan"))
+            listPronunciation.add(Pronunciation("Ăă","năn"))
+            listPronunciation.add(Pronunciation("Ââ","nân"))
+            listPronunciation.add(Pronunciation("Bb","bờ"))
+            listPronunciation.add(Pronunciation("Cc","cờ"))
+            listPronunciation.add(Pronunciation("Dd","dê"))
+            listPronunciation.add(Pronunciation("Đđ","đê"))
+            listPronunciation.add(Pronunciation("Ee","em"))
+            listPronunciation.add(Pronunciation("Êê","êm"))
+            listPronunciation.add(Pronunciation("Aa","nan"))
+            listPronunciation.add(Pronunciation("Ăă","năn"))
+            listPronunciation.add(Pronunciation("Ââ","nân"))
+            listPronunciation.add(Pronunciation("Bb","bờ"))
+            listPronunciation.add(Pronunciation("Cc","cờ"))
+            listPronunciation.add(Pronunciation("Dd","dê"))
+            listPronunciation.add(Pronunciation("Đđ","đê"))
+            listPronunciation.add(Pronunciation("Ee","em"))
+            listPronunciation.add(Pronunciation("Êê","êm"))
+            listPronunciation.add(Pronunciation("Aa","nan"))
+            listPronunciation.add(Pronunciation("Ăă","năn"))
+            listPronunciation.add(Pronunciation("Ââ","nân"))
+            listPronunciation.add(Pronunciation("Bb","bờ"))
+            listPronunciation.add(Pronunciation("Cc","cờ"))
+            listPronunciation.add(Pronunciation("Dd","dê"))
+            listPronunciation.add(Pronunciation("Đđ","đê"))
+            listPronunciation.add(Pronunciation("Ee","em"))
+            listPronunciation.add(Pronunciation("Êê","êm"))
+            listPronunciation.add(Pronunciation("Aa","nan"))
+            listPronunciation.add(Pronunciation("Ăă","năn"))
+            listPronunciation.add(Pronunciation("Ââ","nân"))
+            listPronunciation.add(Pronunciation("Bb","bờ"))
+            listPronunciation.add(Pronunciation("Cc","cờ"))
+            listPronunciation.add(Pronunciation("Dd","dê"))
+            listPronunciation.add(Pronunciation("Đđ","đê"))
+            listPronunciation.add(Pronunciation("Ee","em"))
+            listPronunciation.add(Pronunciation("Êê","êm"))
+        },{
+            pronunciationAdapter?.setItems(listPronunciation)
+            binding.recyclerViewPronun.layoutManager = GridLayoutManager(requireContext(),3)
+           // binding.recyclerViewPronun.addItemDecoration(ItemSpacingDecoration(7,8))
+            binding.recyclerViewPronun.adapter = pronunciationAdapter
+        },{
+            pronunciationAdapter?.setItems(listPronunciation)
+            binding.recyclerViewPronun.layoutManager = GridLayoutManager(requireContext(),3)
+            //binding.recyclerViewPronun.addItemDecoration(ItemSpacingDecoration(7,8))
+            binding.recyclerViewPronun.adapter = pronunciationAdapter
+        })
+
+
     }
 
     override fun getBinding(
