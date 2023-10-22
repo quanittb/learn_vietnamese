@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.App.Companion.USER
 import com.mobiai.app.model.User
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
@@ -18,8 +19,6 @@ import com.mobiai.databinding.SignUpFragmentBinding
 class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
 
     companion object{
-        val USER = "user"
-        val EMAIL = "email"
         fun instance() : SignUpFragment{
             return newInstance(SignUpFragment::class.java)
         }

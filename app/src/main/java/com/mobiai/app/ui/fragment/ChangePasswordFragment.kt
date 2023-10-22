@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.mobiai.app.App
 import com.mobiai.app.model.User
 import com.mobiai.app.utils.gone
 import com.mobiai.app.utils.visible
@@ -48,7 +49,7 @@ class ChangePasswordFragment : BaseFragment<ChangePasswordFragmentBinding>() {
         val passwordNew = binding.inputNewPass.text.toString().trim()
         if (isValidSignInDetails()){
             val db = FirebaseDatabase.getInstance()
-            val ref = db.getReference(SignUpFragment.USER)
+            val ref = db.getReference(App.USER)
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
 
