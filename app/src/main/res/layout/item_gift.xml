@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:text="Làm quen với các Tổng thống Hợp Chủng Quốc Hoa Kỳ và các nguyên"
             android:textColor="#808080"
+            android:maxLines="2"
+            android:maxLength="200"
             android:textSize="@dimen/_10sdp"
             android:fontFamily="@font/roboto_medium"/>
         <androidx.constraintlayout.widget.ConstraintLayout
