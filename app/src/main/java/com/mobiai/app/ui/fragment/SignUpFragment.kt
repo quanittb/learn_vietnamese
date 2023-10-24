@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.App.Companion.USER
 import com.mobiai.app.model.User
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
@@ -18,12 +19,10 @@ import com.mobiai.databinding.SignUpFragmentBinding
 class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
 
     companion object{
-        val USER = "user"
         fun instance() : SignUpFragment{
             return newInstance(SignUpFragment::class.java)
         }
     }
-    private lateinit var user:User
     override fun initView() {
         binding.tvSignIn.setOnClickListener {
             replaceFragment(SignInFragment.instance())
@@ -41,32 +40,45 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
         val email = binding.inputEmail.text.toString().trim()
         val password = binding.inputPass.text.toString().trim()
         val name = binding.inputFistName.text.toString().trim()
-        user = User(email = email,name = name, pass = password)
-        ref.setValue(user)
-        createUser(email,password)
-        SharedPreferenceUtils.emailLogin = email
-        replaceFragment(HomeFragment.instance())
+        if (!getUserRealtime()){
+            val user = User(email = email,name = name, pass = password)
+            ref.child(System.currentTimeMillis().toString()).setValue(user)
+            createUser(email,password)
+            SharedPreferenceUtils.emailLogin = email
+            replaceFragment(BottomNavigationFragment.instance())
+        }
+        else{
+            showToast("your email exists !")
+        }
     }
-   private fun getUserRealtime(){
+   private fun getUserRealtime():Boolean{
+       var isExist = true
         val db = FirebaseDatabase.getInstance()
        val ref = db.getReference(USER)
+       val email = binding.inputEmail.text.toString().trim()
+
        // Read from the database
        ref.addValueEventListener(object : ValueEventListener {
            override fun onDataChange(dataSnapshot: DataSnapshot) {
-               // This method is called once with the initial value and again
-               // whenever data at this location is updated.
-               val value = dataSnapshot.children
-               for (i in value){
-                   Log.d("TAG", "onDataChange: $i")
+               for (userSnapshot in dataSnapshot.children) {
+                   // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
+                   val user = userSnapshot.getValue(User::class.java)
+                   if (user != null) {
+                       if (user.email == email) {
+                           isExist = false
+                       }
+                   }
                }
-
            }
+
 
            override fun onCancelled(error: DatabaseError) {
                // Failed to read value
+               isExist = false
                Log.w("TAG", "Failed to read value.", error.toException())
            }
        })
+       return isExist
     }
 
     private fun createUser(email:String , pass:String){

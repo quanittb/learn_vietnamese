@@ -1,5 +1,6 @@
 package com.mobiai.app.storage
 
+import com.mobiai.BuildConfig
 import com.mobiai.app.App
 
 object AdsRemote {
@@ -8,7 +9,8 @@ object AdsRemote {
 
 
     var showAdsSplash : Boolean
-        get() = App.instanceSharePreference.getValueBool(REMOTE_ADS_SPLASH, true)
+        get() = if (BuildConfig.DEBUG) false else
+            App.instanceSharePreference.getValueBool(REMOTE_ADS_SPLASH, true)
         set(value) = App.instanceSharePreference.setValueBool(REMOTE_ADS_SPLASH, value)
 
     var showNativeLanguage : Boolean

@@ -72,4 +72,8 @@
     <string name="start_your_journey_now">Start your journey now!</string>
     <string name="you_have_fallen_out_of_the_top_10">You have fallen out of the top 10!</string>
     <string name="try_to_get_back_to_the_top_position">Try to get back to the top position</string>
+    <string name="you_must_grant_permission_to_use">You must grant permission to use</string>
+    <string name="goto_setting">Goto Setting</string>
+    <string name="c_a">CỬA</string>
+
 </resources>

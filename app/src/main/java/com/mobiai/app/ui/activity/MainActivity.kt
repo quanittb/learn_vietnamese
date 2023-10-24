@@ -49,14 +49,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-        addFragment(BottomNavigationFragment.instance())
-
-//        if (SharedPreferenceUtils.emailLogin!=null){
-//            addFragment(HomeFragment.instance())
-//        }
-//        else{
-//            addFragment(SignInFragment.instance())
-//        }
+        if (SharedPreferenceUtils.emailLogin!=null){
+            addFragment(BottomNavigationFragment.instance())
+        }
+        else{
+            replaceFragment(SignInFragment.instance())
+        }
     }
     override fun onResume() {
         super.onResume()

@@ -7,13 +7,14 @@
     android:clickable="true"
     android:focusable="true"
     android:background="#CBC7DE">
+
+
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_back"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingVertical="@dimen/_30sdp"
         android:paddingHorizontal="@dimen/_14sdp"
         android:background="#CBC7DE">
 
@@ -170,5 +171,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:src="@drawable/ic_close"
+        android:padding="@dimen/_6sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

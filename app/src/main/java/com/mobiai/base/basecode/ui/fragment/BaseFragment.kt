@@ -1,5 +1,7 @@
 package com.mobiai.base.basecode.ui.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -39,6 +41,13 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
             compositeDisposable.add(disposable)
         }
 
+    }
+
+    fun gotoSetting() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", requireContext().packageName, null)
+        intent.data = uri
+        startActivity(intent)
     }
 
     override fun onDestroy() {
