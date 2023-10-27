@@ -1,5 +1,6 @@
 package com.mobiai.base.basecode.storage
 
+import com.mobiai.BuildConfig
 import com.mobiai.app.App
 
 object SharedPreferenceUtils {
@@ -18,7 +19,9 @@ object SharedPreferenceUtils {
     private const val SUNDAY_ALARM = "SUNDAY_ALARM"
 
     var emailLogin: String?
-        get() = App.instanceSharePreference.getValue(EMAIL, null)
+        get() =
+//            if(BuildConfig.DEBUG) "quan1@gmail.com" else
+                App.instanceSharePreference.getValue(EMAIL, null)
         set(value) = App.instanceSharePreference.setValue(EMAIL, value)
 
     var firstOpenApp: Boolean
