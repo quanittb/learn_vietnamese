@@ -3,46 +3,70 @@ package com.mobiai.app.ui.fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.R
+import com.mobiai.app.App
 import com.mobiai.app.adapter.GiftAdapter
 import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.model.Gift
+import com.mobiai.app.model.User
+import com.mobiai.app.utils.gone
+import com.mobiai.app.utils.visible
+import com.mobiai.base.basecode.extensions.GetDataFromFirebase
+import com.mobiai.base.basecode.extensions.getInfoUser
+import com.mobiai.base.basecode.extensions.showToast
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentGiftBinding
+import java.time.LocalDate
 
 
 class GiftFragment : BaseFragment<FragmentGiftBinding>() {
-    companion object{
-        fun instance(): GiftFragment{
+    companion object {
+        fun instance(): GiftFragment {
             return newInstance(GiftFragment::class.java)
         }
-        const val IMAGEURL = "imageurl"
+
+        const val IMAGEURL = "imageUrl"
         const val DESCRIPTION = "description"
         const val TITLE = "title"
-        const val RUBY  = "ruby"
+        const val RUBY = "ruby"
     }
-    private var  giftAdapter : GiftAdapter? = null
-    var listGift : ArrayList<Gift>? = null
+
+    private var giftAdapter: GiftAdapter? = null
+    var listGift: ArrayList<Gift>? = null
+    val database = FirebaseDatabase.getInstance()
 
     override fun initView() {
-
         initData()
-
+        requireContext().getInfoUser(object : GetDataFromFirebase{
+            override fun getDataSuccess(user: User) {
+                binding.txtRuby.text = user.ruby.toString()
+                binding.txtExperience.text = user.totalXp.toString()
+            }
+            override fun getDataFail(err: String) {
+                requireContext().showToast(err)
+            }
+        })
     }
+
     fun initData() {
+        binding.layoutLoading.visible()
         listGift = arrayListOf()
         giftAdapter = GiftAdapter(requireContext())
-        val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("gift")
+        val myRef = database.getReference(App.GIFT)
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(i in dataSnapshot.children){
+                if (dataSnapshot.exists()) {
+                    for (i in dataSnapshot.children) {
                         var gift = Gift()
                         gift.imageUrl = i.child("$IMAGEURL").value.toString()
                         gift.description = i.child("$DESCRIPTION").value.toString()
@@ -51,21 +75,21 @@ class GiftFragment : BaseFragment<FragmentGiftBinding>() {
                         listGift?.add(gift)
                     }
                     giftAdapter?.setItems(listGift!!)
-                    binding.recyclerViewGift.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-                    binding.recyclerViewGift.addItemDecoration(ItemSpacingDecoration(7,8))
+                    binding.recyclerViewGift.layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    binding.recyclerViewGift.addItemDecoration(ItemSpacingDecoration(7, 8))
                     binding.recyclerViewGift.adapter = giftAdapter
+                    binding.layoutLoading.gone()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Xử lý lỗi nếu có
+                Toast.makeText(requireContext(), "Err: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
-
-        Log.d("abcd","list : ${listGift?.size}")
-
     }
+
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentGiftBinding {
-        return FragmentGiftBinding.inflate(inflater,container,false)
+        return FragmentGiftBinding.inflate(inflater, container, false)
     }
 }
