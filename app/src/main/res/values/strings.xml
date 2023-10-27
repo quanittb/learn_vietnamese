@@ -75,5 +75,8 @@
     <string name="you_must_grant_permission_to_use">You must grant permission to use</string>
     <string name="goto_setting">Goto Setting</string>
     <string name="c_a">CỬA</string>
+    <string name="answer">Answer :</string>
+    <string name="next">Next</string>
+    <string name="incorrect">incorrect !</string>
 
 </resources>
