@@ -18,6 +18,10 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         binding.ivBack.setOnSafeClickListener(300) {
             handlerBackPressed()
         }
+
+        binding.ivStart.setOnClickListener {
+            addFragment(QuestionFragment.instance())
+        }
     }
 
     override fun handlerBackPressed() {

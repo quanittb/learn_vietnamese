@@ -14,6 +14,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
 
     override fun initView() {
 
+        binding.dvDotView.init(6,1)
     }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentQuestionBinding {
