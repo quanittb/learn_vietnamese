@@ -1,5 +1,6 @@
 package com.mobiai.app.ui.fragment
 
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.mobiai.app.App
 import com.mobiai.app.adapter.TopicAdapter
 import com.mobiai.app.model.Topic
 import com.mobiai.app.utils.gone
+import com.mobiai.app.utils.makeGone
 import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentHomeBinding
@@ -39,11 +41,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rcvLesson.adapter = topicAdapter
     }
     private fun initData(){
+        binding.frLoading.visible()
         val db = FirebaseDatabase.getInstance()
         val ref = db.getReference(App.TOPIC)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                binding.frLoading.visible()
                 for (userSnapshot in dataSnapshot.children) {
                     val topic = userSnapshot.getValue(Topic::class.java)
                     if (topic != null) {
@@ -52,11 +54,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                 }
                 topicAdapter.setItems(listLesson)
-                binding.frLoading.gone()
+                Handler().postDelayed({
+                    binding.frLoading.makeGone()
+                },1000)
 
             }
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
+                Handler().postDelayed({
+                    binding.frLoading.makeGone()
+                },1000)
                 Log.w("TAG", "Failed to read value.", error.toException())
             }
         })

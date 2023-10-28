@@ -1,6 +1,7 @@
 package com.mobiai.app.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,8 +40,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 Log.d("TAG", "initView: $numberTopic")
             }
         }
-
-        //getData()
+        getData()
 
         binding.ivBack.setOnSafeClickListener(300) {
             handlerBackPressed()
@@ -57,30 +57,34 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     }
 
 
-    /*private fun getData(){
+    private fun getData(){
+        binding.frLoading.makeVisible()
         val db = FirebaseDatabase.getInstance()
-        val ref = db.getReference(App.LESSON)
+        val ref = db.getReference(App.QUESTION)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
                     // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
                     val question = userSnapshot.getValue(Question::class.java)
-                    if (question != null && question.topicCode== numberTopic) {
-                        val question = Question(question.questionCode,question.content,question.topicCode,question.level,question.option1,question.option2,question.option3,question.option4,question.answer,question.urlImg,question.typeCode)
-                        listDataWithTopic.add(question)
-                        Log.d("TAG", "onDataChange: $question")
 
+                    if (question != null && question.topicCode == numberTopic) {
+                        listDataWithTopic.add(question)
                     }
                 }
+                Handler().postDelayed({
+                    binding.frLoading.makeGone()
+                },1000)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
+                Handler().postDelayed({
+                    binding.frLoading.makeGone()
+                },1000)
                 Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
 
-    }*/
+    }
 
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLessonBinding {
