@@ -27,61 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4">
-
-
-
-        <!--<ImageView
-            android:id="@+id/iv_select_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/iv_un_selected_question" />
-
-        <ImageView
-            android:id="@+id/iv_select_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_2sdp"
-            android:src="@drawable/iv_un_selected_question" />
-
-        <ImageView
-            android:id="@+id/iv_select_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/iv_un_selected_question" />
-
-        <ImageView
-            android:id="@+id/iv_select_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_2sdp"
-            android:src="@drawable/iv_un_selected_question" />
-
-
-        <ImageView
-            android:id="@+id/iv_select_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/iv_un_selected_question" />
-
-
-        <ImageView
-            android:id="@+id/iv_select_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_2sdp"
-            android:src="@drawable/iv_un_selected_question" />-->
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/tv_Name_question"
         android:layout_width="match_parent"
@@ -94,13 +39,14 @@
         android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/dv_DotView" />
 
     <ImageView
         android:id="@+id/iv_Image_Question"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:src="@drawable/ic_study_6"
+        android:visibility="invisible"
         android:layout_marginTop="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

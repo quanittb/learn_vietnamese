@@ -11,6 +11,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobiai.app.App
 import com.mobiai.app.model.User
+import com.mobiai.app.utils.makeGone
+import com.mobiai.app.utils.makeVisible
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.LoginFragmentBinding
@@ -45,6 +47,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
         val ref = db.getReference(App.USER)
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                binding.layoutLoading.makeVisible()
                 for (userSnapshot in dataSnapshot.children) {
                     // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
                     val user = userSnapshot.getValue(User::class.java)
@@ -54,9 +57,11 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
                             SharedPreferenceUtils.keyUserLogin = userSnapshot.key
                             SharedPreferenceUtils.emailLogin = user.email
                             replaceFragment(BottomNavigationFragment.instance())
+                            binding.layoutLoading.makeGone()
                         }
                     }
                 }
+                binding.layoutLoading.makeGone()
             }
 
             override fun onCancelled(error: DatabaseError) {
