@@ -3,8 +3,6 @@ package com.mobiai.app.ui.fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -12,10 +10,8 @@ import com.google.firebase.database.ValueEventListener
 import com.mobiai.app.App
 import com.mobiai.app.adapter.TopicAdapter
 import com.mobiai.app.model.Topic
-import com.mobiai.app.model.User
 import com.mobiai.app.utils.gone
 import com.mobiai.app.utils.visible
-import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentHomeBinding
 
@@ -37,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initAdapter(){
         topicAdapter =  TopicAdapter(requireContext(), object : TopicAdapter.OnLessonClickListener{
             override fun onClickItemListener(lesson: Topic?) {
-                addFragment(LessonFragment.instance())
+                lesson?.let { LessonFragment.instance(it.topicCode) }?.let { addFragment(it) }
             }
         })
         binding.rcvLesson.adapter = topicAdapter

@@ -51,11 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
-//        if(BuildConfig.DEBUG){
-//            addFragment(BottomNavigationFragment.instance())
-//            return
-//        }
-        if (SharedPreferenceUtils.emailLogin!=null){
+        if (SharedPreferenceUtils.keyUserLogin!=null && SharedPreferenceUtils.emailLogin!=null ){
             addFragment(BottomNavigationFragment.instance())
         }
         else{

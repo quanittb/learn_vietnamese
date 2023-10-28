@@ -40,10 +40,12 @@ class SignUpFragment : BaseFragment<SignUpFragmentBinding>() {
         val email = binding.inputEmail.text.toString().trim()
         val password = binding.inputPass.text.toString().trim()
         val name = binding.inputFistName.text.toString().trim()
-        if (!getUserRealtime()){
+        if (getUserRealtime()){
             val user = User(email = email,name = name, pass = password)
-            ref.child(System.currentTimeMillis().toString()).setValue(user)
+            val keyUser = System.currentTimeMillis().toString()
+            ref.child(keyUser).setValue(user)
             createUser(email,password)
+            SharedPreferenceUtils.keyUserLogin = keyUser
             SharedPreferenceUtils.emailLogin = email
             replaceFragment(BottomNavigationFragment.instance())
         }
