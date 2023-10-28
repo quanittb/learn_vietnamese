@@ -7,6 +7,7 @@ object SharedPreferenceUtils {
     private const val FIRST_OPEN_APP = "FIRST_OPEN_APP"
     private const val LANGUAGE = "LANGUAGE"
     private const val EMAIL = "EMAIL"
+    private const val KEY_USER = "KEY_USER"
     private const val ALARM = "ALARM"
     private const val HOUR_ALARM = "HOUR_ALARM"
     private const val MINUTE_ALARM = "MINUTE_ALARM"
@@ -17,6 +18,11 @@ object SharedPreferenceUtils {
     private const val FRIDAY_ALARM = "FRIDAY_ALARM"
     private const val SATURDAY_ALARM = "SATURDAY_ALARM"
     private const val SUNDAY_ALARM = "SUNDAY_ALARM"
+
+    var keyUserLogin: String?
+        get() =
+            App.instanceSharePreference.getValue(KEY_USER, null)
+        set(value) = App.instanceSharePreference.setValue(KEY_USER, value)
 
     var emailLogin: String?
         get() =
