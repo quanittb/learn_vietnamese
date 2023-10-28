@@ -24,7 +24,7 @@ companion object{
         pronunciationAdapter = PronunciationAdapter(requireContext())
         val listPronunciation : ArrayList<Pronunciation> = arrayListOf()
         runBackground({
-            listPronunciation.add(Pronunciation("Aa","nan"))
+            listPronunciation.add(Pronunciation("Aa","na"))
             listPronunciation.add(Pronunciation("Ăă","năn"))
             listPronunciation.add(Pronunciation("Ââ","nân"))
             listPronunciation.add(Pronunciation("Bb","bờ"))
@@ -71,7 +71,9 @@ companion object{
             //binding.recyclerViewPronun.addItemDecoration(ItemSpacingDecoration(7,8))
             binding.recyclerViewPronun.adapter = pronunciationAdapter
         })
-
+        binding.btnTest.setOnClickListener{
+            replaceFragment(BottomNavigationFragment.instance())
+        }
 
     }
 

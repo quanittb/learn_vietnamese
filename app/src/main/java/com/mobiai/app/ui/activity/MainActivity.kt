@@ -7,10 +7,12 @@ import android.view.Display.Mode
 import com.ads.control.admob.AppOpenManager
 import com.apero.inappupdate.AppUpdate
 import com.apero.inappupdate.AppUpdateManager
+import com.mobiai.BuildConfig
 import com.mobiai.R
 import com.mobiai.app.ui.fragment.BottomNavigationFragment
 import com.mobiai.app.ui.fragment.GiftFragment
 import com.mobiai.app.ui.fragment.HomeFragment
+import com.mobiai.app.ui.fragment.ProfileFragment
 import com.mobiai.app.ui.fragment.RankFragment
 import com.mobiai.app.ui.fragment.SignInFragment
 import com.mobiai.base.basecode.service.db.ModelTestDB
@@ -49,6 +51,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
+//        if(BuildConfig.DEBUG){
+//            addFragment(BottomNavigationFragment.instance())
+//            return
+//        }
         if (SharedPreferenceUtils.emailLogin!=null){
             addFragment(BottomNavigationFragment.instance())
         }

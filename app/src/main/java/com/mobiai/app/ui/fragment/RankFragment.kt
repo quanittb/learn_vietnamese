@@ -1,14 +1,26 @@
 package com.mobiai.app.ui.fragment
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.mobiai.app.App
 import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.adapter.RankAdapter
 import com.mobiai.app.model.Rank
+import com.mobiai.app.model.User
 import com.mobiai.app.ui.dialog.OutTopDialog
+import com.mobiai.base.basecode.extensions.GetDataFromFirebase
+import com.mobiai.base.basecode.extensions.LogD
+import com.mobiai.base.basecode.extensions.showToast
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentRankBinding
+import kotlin.math.log
 
 class RankFragment : BaseFragment<FragmentRankBinding>() {
    companion object{
@@ -19,23 +31,9 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
     private var  rankAdapter : RankAdapter? = null
     private var outTopDialog : OutTopDialog? = null
 
+
     override fun initView() {
-        initData()
-    }
-    fun initData() {
-        rankAdapter = RankAdapter(requireContext())
-        var listRank : ArrayList<Rank> = arrayListOf()
-        listRank.add(Rank("","ABCD",1000))
-        listRank.add(Rank("","ABCDE",5000))
-        listRank.add(Rank("","ABCDF",6000))
-        listRank.add(Rank("","ABCDG",4000))
-        listRank.add(Rank("","ABCDH",3000))
-        listRank.add(Rank("","ABCDi",2000))
-        listRank.sortByDescending { it.experience }
-        binding.recyclerViewRank.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-        binding.recyclerViewRank.addItemDecoration(ItemSpacingDecoration(7,8))
-        rankAdapter?.setItems(listRank)
-        binding.recyclerViewRank.adapter = rankAdapter
+        getRank()
     }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentRankBinding {
@@ -46,5 +44,32 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
             outTopDialog = OutTopDialog(requireContext())
         }
         outTopDialog?.show()
+    }
+
+    fun getRank() {
+        val db = FirebaseDatabase.getInstance()
+        val ref = db.getReference(App.USER)
+        var listRankUser : ArrayList<User> = arrayListOf()
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    val user = userSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        LogD("$user")
+                        listRankUser.add(user)
+                        }
+                    }
+                binding.recyclerViewRank.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+                binding.recyclerViewRank.addItemDecoration(ItemSpacingDecoration(7,8))
+                listRankUser.sortByDescending { it.totalXp}
+                rankAdapter = RankAdapter(requireContext())
+                rankAdapter?.setItems(listRankUser)
+                binding.recyclerViewRank.adapter = rankAdapter
+                }
+
+            override fun onCancelled(error: DatabaseError) {
+                requireContext().showToast(error.message)
+            }
+        })
     }
 }

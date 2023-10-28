@@ -8,6 +8,24 @@
     android:focusable="true"
     android:orientation="vertical"
     android:background="#CBC7DE">
+
+    <FrameLayout
+        android:id="@+id/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/blue_primary" />
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -25,7 +43,7 @@
             android:id="@+id/txt_ruby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1087"
+            android:text="0"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/black"
@@ -43,7 +61,7 @@
             android:id="@+id/txt_experience"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1087"
+            android:text="0"
             android:textSize="@dimen/_14sdp"
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/black"
