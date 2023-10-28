@@ -50,6 +50,8 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {
                         if (user.email == email && user.pass == password) {
+                            Log.d("TAG", "onDataChange: ${userSnapshot.key}")
+                            SharedPreferenceUtils.keyUserLogin = userSnapshot.key
                             SharedPreferenceUtils.emailLogin = user.email
                             replaceFragment(BottomNavigationFragment.instance())
                         }
