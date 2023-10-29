@@ -16,9 +16,10 @@ import com.mobiai.app.model.Gift
 import com.mobiai.app.model.User
 import com.mobiai.app.ui.dialog.SuccessGiftDialog
 import com.mobiai.app.utils.Announcer
-import com.mobiai.app.utils.gone
-import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.adapter.BaseAdapter
+import com.mobiai.base.basecode.extensions.GetDataFromFirebase
+import com.mobiai.base.basecode.extensions.LogD
+import com.mobiai.base.basecode.extensions.showToast
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.databinding.ItemGiftBinding
 
@@ -35,13 +36,25 @@ class GiftAdapter(val context: Context) : BaseAdapter<Gift,ItemGiftBinding>() {
         val announcer = Announcer(context)
         announcer.initTTS(context)
         binding.txtTitle.text = item.title
-        binding.txtDescription.text = item.description
+        binding.txtDescription.text = if(item.description.length < 80) item.description else "${item.description.take(80)}..."
         binding.txtRuby.text = item.ruby.toString()
         Glide.with(context).load(item.imageUrl).into(binding.image)
 
         binding.btnReceive.setOnClickListener {
             successGiftDialog = SuccessGiftDialog(context)
             successGiftDialog!!.show()
+            listItem.remove(item)
+            notifyDataSetChanged()
+            update(ruby = item.ruby, object : GetDataFromFirebase{
+                override fun getDataSuccess(user: User) {
+                }
+
+                override fun getDataFail(err: String) {
+                    context.showToast(err)
+                }
+
+            })
+
         }
         getRubyCurrent(item,binding)
     }
@@ -68,6 +81,32 @@ class GiftAdapter(val context: Context) : BaseAdapter<Gift,ItemGiftBinding>() {
             override fun onCancelled(error: DatabaseError) {
                 // Failed to read value
                 Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
+    }
+    fun update(ruby: Int, getDataFromFirebase: GetDataFromFirebase){
+        val db = FirebaseDatabase.getInstance()
+        val ref = db.getReference(App.USER)
+        var i = 0
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    var user = userSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        if (user.email == SharedPreferenceUtils.emailLogin && i <1) {
+                            val newRuby = user.ruby - ruby
+                            val userUpdate = User(user.email,user.name,user.pass,user.urlImage,newRuby,user.totalXp)
+                            getDataFromFirebase.getDataSuccess(userUpdate)
+                            userSnapshot.key?.let { ref.child(it).setValue(userUpdate) }
+                            i++
+                            break
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                getDataFromFirebase.getDataFail(error.message)
             }
         })
     }

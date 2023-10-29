@@ -29,9 +29,8 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
        }
    }
     private var  rankAdapter : RankAdapter? = null
-    private var outTopDialog : OutTopDialog? = null
-
-
+    val db = FirebaseDatabase.getInstance()
+    val ref = db.getReference(App.USER)
     override fun initView() {
         getRank()
     }
@@ -39,23 +38,16 @@ class RankFragment : BaseFragment<FragmentRankBinding>() {
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentRankBinding {
         return FragmentRankBinding.inflate(inflater,container,false)
     }
-    private fun showDialog(){
-        if(outTopDialog == null){
-            outTopDialog = OutTopDialog(requireContext())
-        }
-        outTopDialog?.show()
-    }
 
     fun getRank() {
-        val db = FirebaseDatabase.getInstance()
-        val ref = db.getReference(App.USER)
+
         var listRankUser : ArrayList<User> = arrayListOf()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                listRankUser.clear()
                 for (userSnapshot in dataSnapshot.children) {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {
-                        LogD("$user")
                         listRankUser.add(user)
                         }
                     }
