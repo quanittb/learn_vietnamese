@@ -31,7 +31,7 @@ object SharedPreferenceUtils {
         set(value) = App.instanceSharePreference.setValue(EMAIL, value)
 
     var firstOpenApp: Boolean
-        get() = App.instanceSharePreference.getValueBool(FIRST_OPEN_APP, true)
+        get() = App.instanceSharePreference.getValueBool(FIRST_OPEN_APP, false)
         set(value) = App.instanceSharePreference.setValueBool(FIRST_OPEN_APP, value)
 
     var languageCode: String?

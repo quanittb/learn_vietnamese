@@ -7,8 +7,11 @@ import android.view.Display.Mode
 import com.ads.control.admob.AppOpenManager
 import com.apero.inappupdate.AppUpdate
 import com.apero.inappupdate.AppUpdateManager
+import com.google.firebase.database.FirebaseDatabase
 import com.mobiai.BuildConfig
 import com.mobiai.R
+import com.mobiai.app.App
+import com.mobiai.app.model.Question
 import com.mobiai.app.ui.fragment.BottomNavigationFragment
 import com.mobiai.app.ui.fragment.GiftFragment
 import com.mobiai.app.ui.fragment.HomeFragment
@@ -51,6 +54,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun attachFragment(){
+        if(BuildConfig.DEBUG){
+            addFragment(BottomNavigationFragment.instance())
+            return
+        }
         if (SharedPreferenceUtils.keyUserLogin!=null && SharedPreferenceUtils.emailLogin!=null ){
             addFragment(BottomNavigationFragment.instance())
         }
@@ -60,6 +67,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
     override fun onResume() {
         super.onResume()
+        AppOpenManager.getInstance().disableAppResume()
         AppUpdateManager.getInstance(this).checkNewAppVersionState(this)
 
     }

@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_semi_bold"
-                android:text="Hello,Tuấn Vũ"
+                android:text="Hello..."
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
                 app:layout_constraintEnd_toEndOf="@+id/ic_experience"

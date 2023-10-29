@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mobiai.app.adapter.ItemSpacingDecoration
 import com.mobiai.app.adapter.PronunciationAdapter
 import com.mobiai.app.model.Pronunciation
+import com.mobiai.app.utils.Announcer
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentPronunciationBinding
 
@@ -21,6 +22,8 @@ companion object{
         initData()
     }
     fun initData() {
+        announcer = Announcer(requireContext())
+        announcer?.initTTS(requireContext())
         pronunciationAdapter = PronunciationAdapter(requireContext())
         val listPronunciation : ArrayList<Pronunciation> = arrayListOf()
         runBackground({
@@ -85,3 +88,4 @@ companion object{
     }
 
 }
+var announcer : Announcer? = null

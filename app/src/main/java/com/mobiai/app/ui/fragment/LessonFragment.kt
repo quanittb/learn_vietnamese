@@ -11,18 +11,24 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mobiai.app.App
 import com.mobiai.app.model.Question
-import com.mobiai.app.model.User
 import com.mobiai.app.utils.makeGone
 import com.mobiai.app.utils.makeVisible
 import com.mobiai.app.utils.setOnSafeClickListener
-import com.mobiai.base.basecode.storage.SharedPreferenceUtils
+import com.mobiai.base.basecode.extensions.GetListDataFromFirebase
+import com.mobiai.base.basecode.extensions.showToast
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentLessonBinding
+import kotlin.random.Random
 
 class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     companion object{
         val NUMBER_TOPIC = "NUMBER_TOPIC"
+        const val LEVEL_1 = 1;
+        const val LEVEL_2 = 2;
+        const val LEVEL_3 = 3;
+        const val LEVEL_4 = 4;
+        const val LEVEL_5 = 5;
         fun instance(numberTopic: String) : LessonFragment{
             Bundle().apply {
                 putString(NUMBER_TOPIC, numberTopic)
@@ -33,6 +39,11 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     private var numberTopic:String? = null
     private var listDataWithTopic = arrayListOf<Question>()
+    val level1List = mutableListOf<Question>()
+    val level2List = mutableListOf<Question>()
+    val level3List = mutableListOf<Question>()
+    val level4List = mutableListOf<Question>()
+    val level5List = mutableListOf<Question>()
     override fun initView() {
         arguments.let {
             if (it != null) {
@@ -40,14 +51,37 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 Log.d("TAG", "initView: $numberTopic")
             }
         }
-        getData()
+        getData(object : GetListDataFromFirebase<Question>{
+            override fun getListDataSuccess(list: List<Question>) {
+                for(i in list){
+                    when (i.level){
+                        LEVEL_1 -> level1List.add(i)
+                        LEVEL_2 -> level2List.add(i)
+                        LEVEL_3 -> level3List.add(i)
+                        LEVEL_4 -> level4List.add(i)
+                        LEVEL_5 -> level5List.add(i)
+                    }
+                }
+            }
+
+            override fun getDataFail(err: String) {
+                requireContext().showToast(err)
+            }
+
+        })
 
         binding.ivBack.setOnSafeClickListener(300) {
             handlerBackPressed()
         }
 
         binding.ivStart.setOnClickListener {
-            addFragment(QuestionFragment.instance())
+            val listQuestion : ArrayList<Question> = arrayListOf()
+            val random = Random(100)
+
+            listQuestion.addAll(level1List.shuffled(random).take(5))
+            listQuestion.addAll(level2List.shuffled(random).take(3))
+            listQuestion.addAll(level3List.shuffled(random).take(2))
+            addFragment(QuestionFragment.instance(numberTopic!!,1))
         }
     }
 
@@ -57,7 +91,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
     }
 
 
-    private fun getData(){
+    private fun getData(getListDataFromFirebase: GetListDataFromFirebase<Question>){
         binding.frLoading.makeVisible()
         val db = FirebaseDatabase.getInstance()
         val ref = db.getReference(App.QUESTION)
@@ -74,9 +108,11 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 Handler().postDelayed({
                     binding.frLoading.makeGone()
                 },1000)
+                getListDataFromFirebase.getListDataSuccess(listDataWithTopic)
             }
 
             override fun onCancelled(error: DatabaseError) {
+                getListDataFromFirebase.getDataFail(error.message)
                 Handler().postDelayed({
                     binding.frLoading.makeGone()
                 },1000)

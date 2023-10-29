@@ -51,6 +51,7 @@ class GiftFragment : BaseFragment<FragmentGiftBinding>() {
                 binding.txtRuby.text = user.ruby.toString()
                 binding.txtExperience.text = user.totalXp.toString()
             }
+
             override fun getDataFail(err: String) {
                 requireContext().showToast(err)
             }
@@ -66,6 +67,7 @@ class GiftFragment : BaseFragment<FragmentGiftBinding>() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    listGift?.clear()
                     for (i in dataSnapshot.children) {
                         var gift = Gift()
                         gift.imageUrl = i.child("$IMAGEURL").value.toString()

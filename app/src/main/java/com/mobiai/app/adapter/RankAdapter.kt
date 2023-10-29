@@ -1,5 +1,6 @@
 package com.mobiai.app.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,9 +11,12 @@ import com.bumptech.glide.Glide
 import com.mobiai.R
 import com.mobiai.app.model.Rank
 import com.mobiai.app.model.User
+import com.mobiai.app.ui.dialog.OutTopDialog
 import com.mobiai.app.utils.gone
 import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.adapter.BaseAdapter
+import com.mobiai.base.basecode.extensions.LogD
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.databinding.ItemRankBinding
 
 class RankAdapter(private val context: Context) : BaseAdapter<User,ItemRankBinding>() {
@@ -20,7 +24,7 @@ class RankAdapter(private val context: Context) : BaseAdapter<User,ItemRankBindi
         return ItemRankBinding.inflate(inflater,parent,false)
     }
     private lateinit var launcher: ActivityResultLauncher<Intent>
-
+    private var outTopDialog = OutTopDialog(context)
     override fun bind(binding: ItemRankBinding, item: User, position: Int) {
         binding.name.text = item.name
         binding.txtExperience.text = item.totalXp.toString()
@@ -47,5 +51,24 @@ class RankAdapter(private val context: Context) : BaseAdapter<User,ItemRankBindi
                 binding.txtRank.text = "${(position +1)}"
             }
         }
+        if(item.email.equals(SharedPreferenceUtils.emailLogin)){
+            binding.name.setTextColor(context.getColor(R.color.blue_primary))
+            binding.txtExperience.setTextColor(context.getColor(R.color.blue_primary))
+            if(position > 2)
+                showDialog()
+        }
+        else{
+            binding.name.setTextColor(context.getColor(R.color.black))
+            binding.txtExperience.setTextColor(context.getColor(R.color.black))
+        }
+        if(item.urlImage == "")
+            Glide.with(context).load(R.drawable.avatar).into(binding.img)
+
+    }
+    @SuppressLint("SuspiciousIndentation")
+    private fun showDialog(){
+            outTopDialog = OutTopDialog(context)
+            if(!outTopDialog.isShowing)
+            outTopDialog.show()
     }
 }

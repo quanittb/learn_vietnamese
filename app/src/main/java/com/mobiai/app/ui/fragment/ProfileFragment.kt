@@ -64,7 +64,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 binding.name.text = user.name
                 binding.txtRuby.text = user.ruby.toString()
                 binding.txtExperience.text = user.totalXp.toString()
-                Glide.with(requireContext()).load(user.urlImage).into(binding.avatar)
+                if(isAdded)
+                    Glide.with(requireContext()).load(user.urlImage).into(binding.avatar)
             }
             override fun getDataFail(err: String) {
                 showToast(err)
@@ -108,15 +109,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private fun saveImageToUserDB(url: String){
         db = FirebaseDatabase.getInstance()
         ref = db.getReference(App.USER)
+        var i = 0
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (userSnapshot in dataSnapshot.children) {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {
-                        if (user.email == SharedPreferenceUtils.emailLogin) {
+                        if (user.email == SharedPreferenceUtils.emailLogin && i<1) {
                             val userUpdate = User(SharedPreferenceUtils.emailLogin!!,user.name,user.pass,url,user.ruby,user.totalXp)
                             userSnapshot.key?.let { ref.child(it).setValue(userUpdate) }
+                            i++
                         }
                     }
                 }

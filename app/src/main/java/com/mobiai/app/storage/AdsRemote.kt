@@ -10,8 +10,8 @@ object AdsRemote {
 
     var showAdsSplash : Boolean
         get() = if (BuildConfig.DEBUG) false else
-            App.instanceSharePreference.getValueBool(REMOTE_ADS_SPLASH, true)
-        set(value) = App.instanceSharePreference.setValueBool(REMOTE_ADS_SPLASH, value)
+            App.instanceSharePreference.getValueBool(REMOTE_ADS_SPLASH, false)
+        set(value) = App.instanceSharePreference.setValueBool(REMOTE_ADS_SPLASH, false)
 
     var showNativeLanguage : Boolean
         get() = App.instanceSharePreference.getValueBool(REMOTE_ADS_NATIVE_LANGUAGE, true)

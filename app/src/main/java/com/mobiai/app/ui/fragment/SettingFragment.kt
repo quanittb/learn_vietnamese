@@ -40,7 +40,7 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         // Sau khi đăng xuất, bạn có thể thực hiện các hành động khác ở đây, ví dụ: quay lại màn hình đăng nhập.
 
         // Ví dụ:
-        replaceFragment(SignUpFragment.instance())
+        replaceFragment(SignInFragment.instance())
 
         // Xóa thông tin đăng nhập trong SharedPreferences (nếu bạn lưu thông tin đăng nhập bằng SharedPreferences).
         SharedPreferenceUtils.emailLogin = null
