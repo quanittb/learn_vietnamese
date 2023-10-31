@@ -20,6 +20,8 @@ class App : AdsMultiDexApplication() {
         val LESSON = "lesson"
         val QUESTION = "question"
         val TOPIC = "topic"
+        val RESULTS = "results"
+        val ANSWEREDQUESTIONS = "ANSWEREDQUESTIONS"
 
         private var instance: App? = null
         private var storageCommon: StorageCommon? = null

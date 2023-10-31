@@ -114,7 +114,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
-
     }
 
     fun getListRandomForLevel(level : Int): String{
