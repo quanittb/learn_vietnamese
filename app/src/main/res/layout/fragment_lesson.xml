@@ -294,6 +294,8 @@
         android:id="@+id/fr_loading"
         android:layout_width="match_parent"
         android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_height="match_parent"
         android:background="#33000000">
         <ProgressBar
