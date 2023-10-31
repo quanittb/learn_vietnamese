@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BaseProject</string>
+    <string name="app_name">Learn Vietnamese</string>
     <string name="this_action_can_contain_ad">This action can contain ad</string>
     <string name="facebook_app_id">1234</string>
     <string name="language_english" translatable="false">English</string>
@@ -77,6 +77,11 @@
     <string name="c_a">CỬA</string>
     <string name="answer">Answer :</string>
     <string name="next">Next</string>
-    <string name="incorrect">incorrect !</string>
+    <string name="incorrect">Incorrect!</string>
+    <string name="correct">Correct!</string>
+    <string name="result">Result</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="you_have_just_completed_the_excellent_challenge">You have just completed the excellent challenge.</string>
+    <string name="share">Share</string>
 
 </resources>
