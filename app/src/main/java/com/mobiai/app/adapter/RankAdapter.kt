@@ -6,16 +6,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import com.mobiai.R
-import com.mobiai.app.model.Rank
 import com.mobiai.app.model.User
 import com.mobiai.app.ui.dialog.OutTopDialog
 import com.mobiai.app.utils.gone
 import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.adapter.BaseAdapter
-import com.mobiai.base.basecode.extensions.LogD
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.databinding.ItemRankBinding
 
@@ -25,6 +22,7 @@ class RankAdapter(private val context: Context) : BaseAdapter<User,ItemRankBindi
     }
     private lateinit var launcher: ActivityResultLauncher<Intent>
     private var outTopDialog = OutTopDialog(context)
+    var isOutTop = false
     override fun bind(binding: ItemRankBinding, item: User, position: Int) {
         binding.name.text = item.name
         binding.txtExperience.text = item.totalXp.toString()
@@ -54,12 +52,15 @@ class RankAdapter(private val context: Context) : BaseAdapter<User,ItemRankBindi
         if(item.email.equals(SharedPreferenceUtils.emailLogin)){
             binding.name.setTextColor(context.getColor(R.color.blue_primary))
             binding.txtExperience.setTextColor(context.getColor(R.color.blue_primary))
-            if(position > 2)
+            if(position > 2){
                 showDialog()
+                isOutTop = true
+            }
         }
         else{
             binding.name.setTextColor(context.getColor(R.color.black))
             binding.txtExperience.setTextColor(context.getColor(R.color.black))
+            isOutTop = false
         }
         if(item.urlImage == "")
             Glide.with(context).load(R.drawable.avatar).into(binding.img)

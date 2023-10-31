@@ -57,10 +57,10 @@ companion object{
 
         binding.lnResult.visible()
         binding.btnNext.setOnClickListener {
-            clickNext.clickNext(position +1 )
+            clickNext.clickNext(position + 1)
+            LogD("đã chạy vào click")
         }
     }
-
 }
 interface ClickNext{
     fun clickNext(position: Int)

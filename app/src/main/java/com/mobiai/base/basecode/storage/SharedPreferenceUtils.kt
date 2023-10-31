@@ -26,7 +26,7 @@ object SharedPreferenceUtils {
 
     var emailLogin: String?
         get() =
-//            if(BuildConfig.DEBUG) "quan1@gmail.com" else
+            if(BuildConfig.DEBUG) "quan1@gmail.com" else
                 App.instanceSharePreference.getValue(EMAIL, null)
         set(value) = App.instanceSharePreference.setValue(EMAIL, value)
 

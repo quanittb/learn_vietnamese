@@ -435,4 +435,8 @@
     <color name="blue_primary">#482FF7</color>
     <color name="gray_text">#78828A</color>
     <color name="color_text_disable_gift">#B5B5C3</color>
+    <color name="color_incorrect">#FF2442</color>
+    <color name="color_correct">#99CC29</color>
+    <color name="bg_color_correct">#F5FFD8</color>
+
 </resources>

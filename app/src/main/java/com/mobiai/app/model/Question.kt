@@ -1,4 +1,5 @@
 package com.mobiai.app.model
+import android.os.Parcelable
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties

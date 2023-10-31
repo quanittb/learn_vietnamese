@@ -27,79 +27,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Name_question" />
-
+<LinearLayout
+    android:id="@+id/ll_option"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_30sdp"
+    android:paddingHorizontal="@dimen/_10sdp"
+    app:layout_constraintTop_toBottomOf="@+id/iv_Image_Question">
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/iv_Image_Question">
+        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/txt_option1"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_bg_answer_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bg_answer_faild"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_option1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:text="answer 1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_bg_answer_1"
-                app:layout_constraintEnd_toEndOf="@+id/iv_bg_answer_1"
-                app:layout_constraintStart_toStartOf="@+id/iv_bg_answer_1"
-                app:layout_constraintTop_toTopOf="@+id/iv_bg_answer_1" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:text="answer 1"
+            android:background="@drawable/bg_option"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            />
+        <TextView
+            android:id="@+id/txt_option2"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_bg_answer_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bg_answer_faild"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_option2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:text="answer 2"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_bg_answer_2"
-                app:layout_constraintEnd_toEndOf="@+id/iv_bg_answer_2"
-                app:layout_constraintStart_toStartOf="@+id/iv_bg_answer_2"
-                app:layout_constraintTop_toTopOf="@+id/iv_bg_answer_2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:text="answer 2"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_option"
+            android:textSize="@dimen/_16ssp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -110,71 +82,41 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/txt_option3"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:id="@+id/iv_bg_answer_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bg_answer_faild"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_option3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:text="answer 3"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_bg_answer_3"
-                app:layout_constraintEnd_toEndOf="@+id/iv_bg_answer_3"
-                app:layout_constraintStart_toStartOf="@+id/iv_bg_answer_3"
-                app:layout_constraintTop_toTopOf="@+id/iv_bg_answer_3" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:text="answer 1"
+            android:background="@drawable/bg_option"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            />
+        <TextView
+            android:id="@+id/txt_option4"
             android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:text="answer 2"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_option"
+            android:textSize="@dimen/_16ssp"
+            />
 
-            <ImageView
-                android:id="@+id/iv_bg_answer_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bg_answer_faild"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/txt_option4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_regular"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_4sdp"
-                android:text="answer 4"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_bg_answer_4"
-                app:layout_constraintEnd_toEndOf="@+id/iv_bg_answer_4"
-                app:layout_constraintStart_toStartOf="@+id/iv_bg_answer_4"
-                app:layout_constraintTop_toTopOf="@+id/iv_bg_answer_4" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+</LinearLayout>
+
 
 
     <LinearLayout
@@ -189,7 +131,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+        app:layout_constraintTop_toBottomOf="@+id/ll_option">
 
         <TextView
             android:id="@+id/tv_success"
@@ -207,6 +149,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_title_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#FF2442"

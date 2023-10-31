@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.mobiai.app.App
 import com.mobiai.app.model.Question
 import com.mobiai.app.utils.makeGone
@@ -18,7 +19,7 @@ import com.mobiai.base.basecode.extensions.GetListDataFromFirebase
 import com.mobiai.base.basecode.extensions.showToast
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentLessonBinding
-import kotlin.random.Random
+import java.util.Random
 
 class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
@@ -75,13 +76,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
 
         binding.ivStart.setOnClickListener {
-            val listQuestion : ArrayList<Question> = arrayListOf()
-            val random = Random(100)
-
-            listQuestion.addAll(level1List.shuffled(random).take(5))
-            listQuestion.addAll(level2List.shuffled(random).take(3))
-            listQuestion.addAll(level3List.shuffled(random).take(2))
-            addFragment(QuestionFragment.instance(numberTopic!!,1))
+            addFragment(QuestionFragment.instance(getListRandomForLevel(1),"lesson1"))
         }
     }
 
@@ -122,7 +117,53 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     }
 
-
+    fun getListRandomForLevel(level : Int): String{
+        val listQuestion : ArrayList<Question> = arrayListOf()
+        val random = Random()
+       var num1 = 0
+       var num2 = 0
+       var num3 = 0
+       var num4 = 0
+       var num5 = 0
+        when (level){
+            1 -> {
+                num1 = 5
+                num2 = 3
+                num3 = 2
+            }
+            2 -> {
+                num1 = 3
+                num2 = 5
+                num3 = 1
+                num4 = 1
+            }
+            3 -> {
+                num1 = 2
+                num2 = 5
+                num3 = 2
+                num4 = 1
+            }
+            4 -> {
+                num2 = 1
+                num3 = 1
+                num4 = 5
+                num5 = 3
+            }
+            else -> {
+                num2 = 1
+                num3 = 1
+                num4 = 3
+                num5 = 5
+            }
+        }
+        listQuestion.addAll(level1List.shuffled(random).take(num1))
+        listQuestion.addAll(level2List.shuffled(random).take(num2))
+        listQuestion.addAll(level3List.shuffled(random).take(num3))
+        listQuestion.addAll(level4List.shuffled(random).take(num4))
+        listQuestion.addAll(level5List.shuffled(random).take(num5))
+        val gson = Gson()
+        return  gson.toJson(listQuestion)
+    }
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLessonBinding {
         return FragmentLessonBinding.inflate(inflater, container,false)
     }
