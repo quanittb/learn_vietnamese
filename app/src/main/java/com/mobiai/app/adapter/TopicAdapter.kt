@@ -33,7 +33,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
     override fun createBinding(inflater: LayoutInflater, parent: ViewGroup): ItemStudyBinding {
         return ItemStudyBinding.inflate(inflater, parent, false)
     }
-    private var numberDone = 0
+
     private var listLessonOfTopic = arrayListOf<Lessons>()
     override fun bind(binding: ItemStudyBinding, item: Topic, position: Int) {
         binding.txtTitle.text = "${item.topicCode}: ${item.name}"
@@ -55,6 +55,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
     }
 
     private fun getData(view1: TextView,view: RangeSeekBar, topicCode:String){
+        var numberDone = 0
         val db = FirebaseDatabase.getInstance()
         val ref1 = db.getReference(App.LESSON)
         val ref2 = db.getReference(App.RESULTS)
@@ -65,7 +66,27 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                     val question = userSnapshot.getValue(Lessons::class.java)
                     if (question != null) {
                         if (question.topicCode == topicCode){
-                            listLessonOfTopic.add(question)
+                            ref2.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                    for (userSnapshot1 in dataSnapshot.children) {
+                                        val results = userSnapshot1.getValue(Results::class.java)
+                                        if (results != null) {
+                                            if (results.userName == SharedPreferenceUtils.emailLogin){
+                                                if (results.numberCorrect > 8 && results.lessonCode == question.lessonCode){
+                                                    numberDone++
+                                                }
+                                            }
+                                        }
+                                    }
+                                    view1.text = numberDone.toString()
+                                    view.setProgress(numberDone.toFloat())
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Log.w("TAG", "Failed to read value.", error.toException())
+                                }
+                            })
+                            break
                         }
                     }
                 }
@@ -76,32 +97,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
         })
 
         // results
-        ref2.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (userSnapshot in dataSnapshot.children) {
-                    val results = userSnapshot.getValue(Results::class.java)
-                    if (results != null) {
-                        if (results.userName == SharedPreferenceUtils.emailLogin){
-                            if (results.numberCorrect > 8){
-                                for (item in listLessonOfTopic){
-                                    if (results.lessonCode == item.lessonCode){
-                                        numberDone++
-                                        Log.d("TAG", "onDataChange: $numberDone")
 
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                view1.text = numberDone.toString()
-                view.setProgress(numberDone.toFloat())
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("TAG", "Failed to read value.", error.toException())
-            }
-        })
 
 
 
