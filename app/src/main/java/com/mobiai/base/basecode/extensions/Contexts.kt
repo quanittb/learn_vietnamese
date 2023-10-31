@@ -37,7 +37,6 @@ fun Context.showToast(string: String){
     Toast.makeText(this,string,Toast.LENGTH_SHORT).show()
 }
 
-//fun Context.udate
 interface GetDataFromFirebase{
     fun getDataSuccess(user:User)
     fun getDataFail(err: String)

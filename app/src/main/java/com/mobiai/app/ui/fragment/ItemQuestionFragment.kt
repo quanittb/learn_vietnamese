@@ -1,19 +1,28 @@
 package com.mobiai.app.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.mobiai.R
+import com.mobiai.app.App
 import com.mobiai.app.adapter.QuestionAdapter
+import com.mobiai.app.model.AnsweredQuestions
 import com.mobiai.app.model.Question
+import com.mobiai.app.model.User
 import com.mobiai.app.utils.gone
 import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.extensions.LogD
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.ItemQuestionBinding
 
@@ -78,6 +87,7 @@ class ItemQuestionFragment : BaseFragment<ItemQuestionBinding>() {
                 binding.txtOption3.isClickable = false
                 binding.txtOption4.isClickable = false
                 isTrue = true
+                updateOptionToFirebase(myQuestion!!.questionCode,view.text.toString())
             }
             else{
                 announcer?.readText(requireContext().getString(R.string.incorrect))
@@ -92,6 +102,7 @@ class ItemQuestionFragment : BaseFragment<ItemQuestionBinding>() {
                 binding.txtOption2.isClickable = false
                 binding.txtOption3.isClickable = false
                 binding.txtOption4.isClickable = false
+                updateOptionToFirebase(myQuestion!!.questionCode,view.text.toString())
                 isTrue = false
             }
         }
@@ -99,6 +110,41 @@ class ItemQuestionFragment : BaseFragment<ItemQuestionBinding>() {
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): ItemQuestionBinding {
         return ItemQuestionBinding.inflate(inflater,container,false)
     }
+
+    fun updateOptionToFirebase(questionCode: String , option : String){
+            val codeResult = "${SharedPreferenceUtils.lesssonCode}_${questionCode}_${SharedPreferenceUtils.emailLogin}"
+            val db = FirebaseDatabase.getInstance()
+            val ref = db.getReference(App.ANSWEREDQUESTIONS)
+            var i = 0
+            var isExist = false
+        val answerUpdate = AnsweredQuestions(questionCode, codeResult, option)
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    for (userSnapshot in dataSnapshot.children) {
+                        val answeredQuestions = userSnapshot.getValue(AnsweredQuestions::class.java)
+                        LogD("$answeredQuestions")
+                        if (answeredQuestions != null) {
+                            if (answeredQuestions.codeQuestion == answerUpdate.codeQuestion && i<1) {
+                                userSnapshot.key?.let { ref.child(it).setValue(answerUpdate) }
+                                i++
+                                isExist = true
+                                break
+                            }
+                        }
+                    }
+                    if(!isExist){
+                        ref.push().setValue(answerUpdate)
+                        isExist = true
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w("TAG", "Failed to read value.", error.toException())
+                }
+            })
+        }
 }
 interface ClickButtonNext{
     fun clickNext(isTrue : Boolean = false)
