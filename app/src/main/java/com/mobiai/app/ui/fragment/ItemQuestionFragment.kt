@@ -112,38 +112,36 @@ class ItemQuestionFragment : BaseFragment<ItemQuestionBinding>() {
     }
 
     fun updateOptionToFirebase(questionCode: String , option : String){
-            val codeResult = "${SharedPreferenceUtils.lesssonCode}_${questionCode}_${SharedPreferenceUtils.emailLogin}"
-            val db = FirebaseDatabase.getInstance()
-            val ref = db.getReference(App.ANSWEREDQUESTIONS)
-            var i = 0
-            var isExist = false
+        val codeResult = "${SharedPreferenceUtils.lesssonCode}_${SharedPreferenceUtils.emailLogin}"
+        val db = FirebaseDatabase.getInstance()
+        val ref = db.getReference(App.ANSWEREDQUESTIONS)
+        var i = 0
+        var isExist = false
         val answerUpdate = AnsweredQuestions(questionCode, codeResult, option)
-            ref.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    for (userSnapshot in dataSnapshot.children) {
-                        val answeredQuestions = userSnapshot.getValue(AnsweredQuestions::class.java)
-                        LogD("$answeredQuestions")
-                        if (answeredQuestions != null) {
-                            if (answeredQuestions.codeQuestion == answerUpdate.codeQuestion && i<1) {
-                                userSnapshot.key?.let { ref.child(it).setValue(answerUpdate) }
-                                i++
-                                isExist = true
-                                break
-                            }
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (userSnapshot in dataSnapshot.children) {
+                    val answeredQuestions = userSnapshot.getValue(AnsweredQuestions::class.java)
+                    LogD("$answeredQuestions")
+                    if (answeredQuestions != null) {
+                        if (answeredQuestions.codeQuestion == answerUpdate.codeQuestion && i<1) {
+                            userSnapshot.key?.let { ref.child(it).setValue(answerUpdate) }
+                            i++
+                            isExist = true
+                            break
                         }
                     }
-                    if(!isExist){
-                        ref.push().setValue(answerUpdate)
-                        isExist = true
-                    }
                 }
+                if(!isExist){
+                    ref.push().setValue(answerUpdate)
+                    isExist = true
+                }
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    // Failed to read value
-                    Log.w("TAG", "Failed to read value.", error.toException())
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
         }
 }
 interface ClickButtonNext{

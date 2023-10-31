@@ -242,9 +242,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (userSnapshot in dataSnapshot.children) {
-                    // Lấy dữ liệu từ mỗi child node và chuyển đổi thành đối tượng User
                     val question = userSnapshot.getValue(Question::class.java)
-
                     if (question != null && question.topicCode == numberTopic) {
                         listDataWithTopic.add(question)
                     }
@@ -254,7 +252,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 },1000)
                 getListDataFromFirebase.getListDataSuccess(listDataWithTopic)
             }
-
             override fun onCancelled(error: DatabaseError) {
                 getListDataFromFirebase.getDataFail(error.message)
                 Handler().postDelayed({
