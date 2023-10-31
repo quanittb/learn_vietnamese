@@ -112,7 +112,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         var i = 0
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                 for (userSnapshot in dataSnapshot.children) {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {

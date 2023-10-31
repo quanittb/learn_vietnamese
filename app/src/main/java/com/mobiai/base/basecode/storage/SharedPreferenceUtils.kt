@@ -18,6 +18,7 @@ object SharedPreferenceUtils {
     private const val FRIDAY_ALARM = "FRIDAY_ALARM"
     private const val SATURDAY_ALARM = "SATURDAY_ALARM"
     private const val SUNDAY_ALARM = "SUNDAY_ALARM"
+    private const val LESSON_CODE = "LESSON_CODE"
 
     var keyUserLogin: String?
         get() =
@@ -67,4 +68,7 @@ object SharedPreferenceUtils {
     var sunday: Boolean
         get() = App.instanceSharePreference.getValueBool(SUNDAY_ALARM, false)
         set(value) = App.instanceSharePreference.setValueBool(SUNDAY_ALARM, value)
+    var lesssonCode: String?
+        get() = App.instanceSharePreference.getValue(LESSON_CODE, null)
+        set(value) = App.instanceSharePreference.setValue(LESSON_CODE, value)
 }

@@ -11,6 +11,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.util.Log
 import android.widget.Toast
+import com.mobiai.base.basecode.extensions.showToast
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import java.util.Locale
 
@@ -23,7 +24,8 @@ class Announcer(context: Context) : OnInitListener {
             val result = tts!!.setLanguage(Locale("vi","VI"))
 //            Log.d("onInit", "onInit: $countryLanguage")
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-             //   openTextToSpeechSettings(this.context)
+//                openTextToSpeechSettings(this.context)
+                context.showToast("Language not supported")
             }
         }
     }

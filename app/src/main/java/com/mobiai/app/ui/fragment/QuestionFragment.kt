@@ -12,6 +12,7 @@ import com.mobiai.app.adapter.QuestionAdapter
 import com.mobiai.app.adapter.QuestionPagerAdapter
 import com.mobiai.app.model.Question
 import com.mobiai.base.basecode.extensions.LogD
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentQuestionBinding
 
@@ -42,6 +43,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
                 val gson = Gson()
                 listQuestion = gson.fromJson(jsonString, object : TypeToken<ArrayList<Question>>() {}.type)
                 lesson = it.getString(LESSON)
+                SharedPreferenceUtils.lesssonCode = it.getString(LESSON)
             }
         }
         binding.dvDotView.init(MAX_SIZE,1)
