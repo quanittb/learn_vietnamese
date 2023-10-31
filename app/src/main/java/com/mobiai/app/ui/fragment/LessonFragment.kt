@@ -22,6 +22,7 @@ import com.mobiai.app.utils.makeVisible
 import com.mobiai.app.utils.setOnSafeClickListener
 import com.mobiai.base.basecode.extensions.GetListDataFromFirebase
 import com.mobiai.base.basecode.extensions.showToast
+import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentLessonBinding
 import java.util.Random
@@ -63,7 +64,6 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
         }
         disableAllItem()
-        showItemClick()
         getDataLesson()
         getData(object : GetListDataFromFirebase<Question>{
             override fun getListDataSuccess(list: List<Question>) {
@@ -84,6 +84,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
             }
 
         })
+        showItemClick()
 
         binding.ivBack.setOnSafeClickListener(300) {
             handlerBackPressed()
@@ -133,9 +134,13 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                     val results = userSnapshot.getValue(Results::class.java)
                     if (results != null) {
                         if (results.numberCorrect > 8){
-                            for (item in listDataLessonWithTopic){
-                                if (results.lessonCode == item.lessonCode){
-                                    enableWithItem(getNumberLevel(item.lessonCode))
+                            if (results.userName == SharedPreferenceUtils.emailLogin){
+                                for (item in listDataLessonWithTopic){
+                                    if (results.lessonCode == item.lessonCode){
+                                        enableWithItem(getNumberLevel(item.lessonCode)  + 1)
+                                        Log.d("TAG", "onDataChange: ${item.lessonCode}")
+
+                                    }
                                 }
                             }
                         }
@@ -160,21 +165,31 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 binding.bgLessonNext2.makeVisible()
             }
             LEVEL_3 -> {
+                binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.ivStudy3.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_3_on))
                 binding.bgLessonNext3.makeVisible()
             }
             LEVEL_4 -> {
+                binding.frStudy2.isEnabled = true
+                binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
                 binding.ivStudy4.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_4_on))
                 binding.bgLessonNext4.makeVisible()
             }
             LEVEL_5 -> {
+                binding.frStudy2.isEnabled = true
+                binding.frStudy3.isEnabled = true
+                binding.frStudy4.isEnabled = true
                 binding.frStudy5.isEnabled = true
                 binding.ivStudy5.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5_on))
                 binding.bgLessonNext5.makeVisible()
             }
             LEVEL_6 -> {
+                binding.frStudy2.isEnabled = true
+                binding.frStudy3.isEnabled = true
+                binding.frStudy4.isEnabled = true
+                binding.frStudy5.isEnabled = true
                 binding.frStudy6.isEnabled = true
                 binding.ivStudy6.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_6_on))
                 binding.bgLessonNext6.makeVisible()

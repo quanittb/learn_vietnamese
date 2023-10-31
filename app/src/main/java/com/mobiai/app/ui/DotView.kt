@@ -1,5 +1,4 @@
 package com.mobiai.app.ui
-
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -31,17 +30,20 @@ class DotView @JvmOverloads constructor(
 
     private var start = 0f
 
-    fun init(size:Int,dot:Int){
-        this.dotSize=size
-        this.dotIndex=dot
+    fun init(size: Int, dot: Int) {
+        this.dotSize = size
+        this.dotIndex = dot
+        listRect.clear()
+        start = 0f
         invalidate()
     }
 
+    val listRect = mutableListOf<RectF>()
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val width = canvas.width.toFloat()
         val height = canvas.height.toFloat()
-        val listRect = mutableListOf<RectF>()
+
         val space = 3f
         val dotWidth = (width - (dotSize - 1) * space) / dotSize
 

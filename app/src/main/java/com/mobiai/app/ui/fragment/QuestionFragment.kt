@@ -70,8 +70,8 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
                         else{
                             postion ++
                             binding.viewpager.currentItem = postion
+                            binding.dvDotView.init(MAX_SIZE , postion + 1)
                         }
-
                     }
                 }
             })
