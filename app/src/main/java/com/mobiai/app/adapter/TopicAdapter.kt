@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.database.DataSnapshot
@@ -18,6 +19,7 @@ import com.mobiai.R
 import com.mobiai.app.App
 import com.mobiai.app.model.Lessons
 import com.mobiai.app.model.Question
+import com.mobiai.app.model.Results
 import com.mobiai.app.model.Topic
 import com.mobiai.app.utils.makeGone
 import com.mobiai.app.utils.makeVisible
@@ -42,7 +44,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
             Glide.with(context).load(item.urlImg).diskCacheStrategy(DiskCacheStrategy.ALL)
                 .skipMemoryCache(true).into(binding.image)
         }
-        getData(binding.sbPercent,item.topicCode)
+        getData(binding.txtNumberDone,binding.sbPercent,item.topicCode)
        // binding.sbPercent.setProgress(item.numberLesson.toFloat())
 
         binding.root.setOnClickListener {
@@ -51,8 +53,8 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
         }
     }
 
-    private fun getData(view: RangeSeekBar, topicCode:String){
-        var numberDone = 0f
+    private fun getData(view1: TextView,view: RangeSeekBar, topicCode:String){
+        var numberDone = 0
         val db = FirebaseDatabase.getInstance()
         val ref1 = db.getReference(App.LESSON)
         val ref2 = db.getReference(App.RESULTS)
@@ -67,7 +69,6 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                         }
                     }
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -81,15 +82,15 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                 for (userSnapshot in dataSnapshot.children) {
                     val results = userSnapshot.getValue(Results::class.java)
                     if (results != null) {
-
-                        for (item in listLessonOfTopic){
-                            if (item.lessonCode == results){
-                                numberDone++
+                        if (results.numberCorrect > 8){
+                            for (item in listLessonOfTopic){
+                                if (results.lessonCode == item.lessonCode){
+                                    numberDone++
+                                }
                             }
                         }
                     }
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -97,7 +98,8 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
             }
         })
 
-        view.setProgress(numberDone)
+        view1.text = numberDone.toString()
+        view.setProgress(numberDone.toFloat())
 
     }
 
