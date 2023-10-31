@@ -67,7 +67,6 @@
                 android:text="Hello..."
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sdp"
-                app:layout_constraintEnd_toEndOf="@+id/ic_experience"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_ruby" />
             <TextView
