@@ -17,6 +17,7 @@ import com.mobiai.app.ui.fragment.GiftFragment
 import com.mobiai.app.ui.fragment.HomeFragment
 import com.mobiai.app.ui.fragment.ProfileFragment
 import com.mobiai.app.ui.fragment.RankFragment
+import com.mobiai.app.ui.fragment.ResultFragment
 import com.mobiai.app.ui.fragment.SignInFragment
 import com.mobiai.base.basecode.service.db.ModelTestDB
 import com.mobiai.base.basecode.service.db.testModelDB
@@ -56,6 +57,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun attachFragment(){
         if(BuildConfig.DEBUG){
             addFragment(BottomNavigationFragment.instance())
+           // addFragment(ResultFragment.instance(1))
+
             return
         }
         if (SharedPreferenceUtils.keyUserLogin!=null && SharedPreferenceUtils.emailLogin!=null ){

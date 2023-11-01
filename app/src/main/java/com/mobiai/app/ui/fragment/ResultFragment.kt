@@ -6,6 +6,8 @@ import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +18,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mobiai.BuildConfig
 import com.mobiai.app.App
 import com.mobiai.app.model.AnsweredQuestions
 import com.mobiai.app.model.Results
 import com.mobiai.app.model.User
+import com.mobiai.app.utils.photoTemp
+import com.mobiai.app.utils.saveImageToFile
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
 import com.mobiai.base.basecode.ui.fragment.BaseFragment
 import com.mobiai.databinding.FragmentResultBinding
@@ -40,7 +45,9 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
     var ruby = 0
     var xp = 0
     private val REQUEST_SCREENSHOT = 123
-//    private var listDataReview = arrayListOf<Question>()
+    private var bitmap:Bitmap?= null
+
+    //    private var listDataReview = arrayListOf<Question>()
     override fun initView() {
         arguments.let {
             if(it != null){
@@ -59,41 +66,25 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         binding.btnContinue.setOnClickListener{
             replaceFragment(BottomNavigationFragment.instance())
         }
+
         binding.btnShare.setOnClickListener{
-           // takeScreenshot()
-            val bitmap =  createBitmapFromView()
-            Log.d("TAG", "initView: $bitmap")
-
+            bitmap?.recycle()
+             bitmap =  createBitmapFromView()
+            val pathImage = bitmap!!.saveImageToFile(requireContext(), photoTemp)
+            if (pathImage != null) {
+                shareImage(pathImage)
+            }
         }
     }
 
-    fun shareBitmap(bitmap: Bitmap) {
-        val cachePath = File(requireContext().cacheDir, "images")
-        cachePath.mkdirs()
-        val imageFile = File(cachePath, "image.png")
-
-        try {
-            val fileOutputStream = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
-            fileOutputStream.flush()
-            fileOutputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        // Tạo Uri cho tệp Bitmap tạm thời
-        val imageUri = FileProvider.getUriForFile(requireContext(), requireContext().packageName + ".fileprovider", imageFile)
-
-        // Tạo Intent để chia sẻ Bitmap
+    private fun shareImage(filePath: String) {
+        val imageFile = File(filePath)
+        val uri = FileProvider.getUriForFile(requireContext(), BuildConfig.APPLICATION_ID + ".fileprovider", imageFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "image/*"
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
-
-        // Khởi động Intent
-        requireContext().startActivity(Intent.createChooser(shareIntent, "Chia sẻ qua"))
-        // Xóa tệp tạm thời sau khi chia sẻ
-        imageFile.delete()
+        shareIntent.type = "image/jpeg"
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        startActivity(Intent.createChooser(shareIntent, "share_image_using"))
     }
-
 
     override fun getBinding(
         inflater: LayoutInflater,
@@ -160,45 +151,16 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
 
     fun createBitmapFromView(): Bitmap {
         // Đảm bảo rằng kích thước của Bitmap phù hợp với kích thước của View
-        binding.lnResultFragment.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val width = binding.lnResultFragment.measuredWidth
-        val height = binding.lnResultFragment.measuredHeight
-
+        binding.root.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val width = binding.root.measuredWidth
+        val height = binding.root.measuredHeight
         // Tạo Bitmap với kích thước của View
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
 
         // Gắn Bitmap với Canvas để vẽ View lên Bitmap
         val canvas = Canvas(bitmap)
-        binding.lnResultFragment.layout(0, 0, width, height)
-        binding.lnResultFragment.draw(canvas)
+        binding.root.layout(0, 0, width, height)
+        binding.root.draw(canvas)
         return bitmap
     }
-    private fun saveScreenshot(bitmap: Bitmap): Uri {
-        val folder = File(
-            Environment.getExternalStorageDirectory().toString() + "/Screenshots"
-        )
-        folder.mkdirs()
-
-        val file = File(folder, "screenshot.png")
-
-        try {
-            val stream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            stream.flush()
-            stream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return Uri.fromFile(file)
-    }
-
-    private fun shareScreenshot(uri: Uri) {
-        val screenshotUri = uri
-        ShareCompat.IntentBuilder.from(requireActivity())
-            .setType("image/*")
-            .setStream(screenshotUri)
-            .startChooser()
-    }
-
-
 }
