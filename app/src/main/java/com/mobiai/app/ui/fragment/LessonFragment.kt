@@ -91,28 +91,39 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
 
         binding.frStudy1.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_1)
+            //addFragmentWithLevel(LEVEL_1)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[0].lessonCode)),listDataLessonWithTopic[0].lessonCode))
         }
 
         binding.frStudy2.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_2)
+           // addFragmentWithLevel(LEVEL_2)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[1].lessonCode)),listDataLessonWithTopic[1].lessonCode))
+
         }
 
         binding.frStudy3.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_3)
+            //addFragmentWithLevel(LEVEL_3)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[2].lessonCode)),listDataLessonWithTopic[2].lessonCode))
+
         }
 
         binding.frStudy4.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_4)
+            //addFragmentWithLevel(LEVEL_4)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[3].lessonCode)),listDataLessonWithTopic[3].lessonCode))
+
         }
 
 
         binding.frStudy5.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_5)
+           // addFragmentWithLevel(LEVEL_5)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[4].lessonCode)),listDataLessonWithTopic[4].lessonCode))
+
         }
 
         binding.frStudy6.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_6)
+          //  addFragmentWithLevel(LEVEL_6)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[4].lessonCode)),listDataLessonWithTopic[4].lessonCode))
+
         }
 
     }
