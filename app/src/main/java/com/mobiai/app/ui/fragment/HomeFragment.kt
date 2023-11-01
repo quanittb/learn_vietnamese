@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initAdapter(){
         topicAdapter =  TopicAdapter(requireContext(), object : TopicAdapter.OnLessonClickListener{
             override fun onClickItemListener(lesson: Topic?) {
-                lesson?.let { LessonFragment.instance(it.topicCode) }?.let { addFragment(it) }
+                lesson?.let { LessonFragment.instance(it.topicCode,"${it.topicCode}: ${it.name}") }?.let { addFragment(it) }
             }
         })
         binding.rcvLesson.adapter = topicAdapter

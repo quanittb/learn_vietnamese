@@ -31,21 +31,24 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     companion object{
         val NUMBER_TOPIC = "NUMBER_TOPIC"
+        val TITLE = "TITLE"
         const val LEVEL_1 = 1;
         const val LEVEL_2 = 2;
         const val LEVEL_3 = 3;
         const val LEVEL_4 = 4;
         const val LEVEL_5 = 5;
         const val LEVEL_6 = 5;
-        fun instance(numberTopic: String) : LessonFragment{
+        fun instance(numberTopic: String,title:String) : LessonFragment{
             Bundle().apply {
                 putString(NUMBER_TOPIC, numberTopic)
+                putString(TITLE, title)
                 return newInstance(LessonFragment::class.java, this)
             }
         }
     }
 
     private var numberTopic:String? = null
+    private var titleHeader:String? = null
     private var listDataWithTopic = arrayListOf<Question>()
     private var listDataLessonWithTopic = arrayListOf<Lessons>()
     private val level1List = mutableListOf<Question>()
@@ -60,9 +63,12 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         arguments.let {
             if (it != null) {
                 numberTopic = it.getString(NUMBER_TOPIC)
+                titleHeader = it.getString(TITLE)
                 Log.d("TAG", "initView: $numberTopic")
             }
         }
+        binding.txtHelloHeader.text = "$titleHeader"
+
         disableAllItem()
         getDataLesson()
         getData(object : GetListDataFromFirebase<Question>{
@@ -127,6 +133,8 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
 
     }
+
+
 
     private fun disableAllItem(){
         binding.frStudy2.isEnabled = false
