@@ -23,6 +23,7 @@ import com.mobiai.app.App
 import com.mobiai.app.model.AnsweredQuestions
 import com.mobiai.app.model.Results
 import com.mobiai.app.model.User
+import com.mobiai.app.utils.DynamicUnitUtils
 import com.mobiai.app.utils.photoTemp
 import com.mobiai.app.utils.saveImageToFile
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
@@ -149,18 +150,34 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
         })
     }
 
-    fun createBitmapFromView(): Bitmap {
-        // Đảm bảo rằng kích thước của Bitmap phù hợp với kích thước của View
-        binding.root.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val width = binding.root.measuredWidth
-        val height = binding.root.measuredHeight
-        // Tạo Bitmap với kích thước của View
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-
-        // Gắn Bitmap với Canvas để vẽ View lên Bitmap
+    fun createBitmapFromView(
+        width: Int = 0,
+        height: Int = 0,
+//            callback: (bitmap: Bitmap) -> Unit
+    ): Bitmap {
+        if (width > 0 && height > 0) {
+            binding.root.measure(
+                View.MeasureSpec.makeMeasureSpec(
+                    DynamicUnitUtils
+                        .convertDpToPixels(width.toFloat()), View.MeasureSpec.EXACTLY
+                ),
+                View.MeasureSpec.makeMeasureSpec(
+                    DynamicUnitUtils
+                        .convertDpToPixels(height.toFloat()), View.MeasureSpec.EXACTLY
+                )
+            )
+        }
+//    view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        val bitmap = Bitmap.createBitmap(
+            binding.root.measuredWidth,
+            binding.root.measuredHeight, Bitmap.Config.ARGB_8888
+        )
         val canvas = Canvas(bitmap)
-        binding.root.layout(0, 0, width, height)
+        val background = binding.root.background
+        background?.draw(canvas)
         binding.root.draw(canvas)
+//        callback(bitmap)
         return bitmap
     }
+
 }
