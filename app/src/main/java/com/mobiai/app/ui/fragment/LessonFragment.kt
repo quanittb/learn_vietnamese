@@ -213,6 +213,18 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 binding.ivStudy6.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_6_on))
                 binding.bgLessonNext6.makeVisible()
             }
+            /*else -> {
+                binding.frStudy2.isEnabled = false
+                binding.frStudy3.isEnabled = false
+                binding.frStudy4.isEnabled = false
+                binding.frStudy5.isEnabled = false
+                binding.frStudy6.isEnabled = false
+                binding.ivStudy2.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5))
+                binding.ivStudy3.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_3))
+                binding.ivStudy4.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_4))
+                binding.ivStudy5.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5))
+                binding.ivStudy6.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_6))
+            }*/
         }
     }
 

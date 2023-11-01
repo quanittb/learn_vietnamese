@@ -1,5 +1,6 @@
 package com.mobiai.app.ui.fragment
 
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -20,18 +21,34 @@ class ForgotPasswordFragment : BaseFragment<ForgotPasswordFragmentBinding>() {
             handlerBackPressed()
         }
         binding.btnSendEmail.setOnClickListener {
-            val user = FirebaseAuth.getInstance()
-           user.sendPasswordResetEmail(binding.inputEmail.text.toString().trim())
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(requireContext(),"send success", Toast.LENGTH_SHORT).show()
-
+            if (isValidSignInDetails()){
+                val user = FirebaseAuth.getInstance()
+                user.sendPasswordResetEmail(binding.inputEmail.text.toString().trim())
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(requireContext(),"send success", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+            }
         }
 
     }
-
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+    private fun isValidSignInDetails(): Boolean {
+        // email trống
+        return if (binding.inputEmail.text.toString().trim().isEmpty()) {
+            showToast("Enter email")
+            false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text.toString().trim()).matches()) {
+            showToast("Enter valid email")
+            false
+        }
+        else {
+            true
+        }
+    }
     override fun handlerBackPressed() {
         super.handlerBackPressed()
         closeFragment(this)
