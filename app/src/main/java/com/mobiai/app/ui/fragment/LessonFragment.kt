@@ -91,28 +91,39 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
         }
 
         binding.frStudy1.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_1)
+            //addFragmentWithLevel(LEVEL_1)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[0].lessonCode)),listDataLessonWithTopic[0].lessonCode))
         }
 
         binding.frStudy2.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_2)
+           // addFragmentWithLevel(LEVEL_2)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[1].lessonCode)),listDataLessonWithTopic[1].lessonCode))
+
         }
 
         binding.frStudy3.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_3)
+            //addFragmentWithLevel(LEVEL_3)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[2].lessonCode)),listDataLessonWithTopic[2].lessonCode))
+
         }
 
         binding.frStudy4.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_4)
+            //addFragmentWithLevel(LEVEL_4)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[3].lessonCode)),listDataLessonWithTopic[3].lessonCode))
+
         }
 
 
         binding.frStudy5.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_5)
+           // addFragmentWithLevel(LEVEL_5)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[4].lessonCode)),listDataLessonWithTopic[4].lessonCode))
+
         }
 
         binding.frStudy6.setOnSafeClickListener {
-            addFragmentWithLevel(LEVEL_6)
+          //  addFragmentWithLevel(LEVEL_6)
+            addFragment(QuestionFragment.instance(getListRandomForLevel(getNumberLevel(listDataLessonWithTopic[4].lessonCode)),listDataLessonWithTopic[4].lessonCode))
+
         }
 
     }
@@ -156,28 +167,28 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     private fun enableWithItem(lessonCode:Int){
         when (lessonCode) {
-            LEVEL_1 -> {
+            getNumberLevel(listDataLessonWithTopic[0].lessonCode) -> {
                 binding.frStudy1.isEnabled = true
             }
-            LEVEL_2 -> {
+            getNumberLevel(listDataLessonWithTopic[1].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.ivStudy2.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5_on))
                 binding.bgLessonNext2.makeVisible()
             }
-            LEVEL_3 -> {
+            getNumberLevel(listDataLessonWithTopic[2].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.ivStudy3.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_3_on))
                 binding.bgLessonNext3.makeVisible()
             }
-            LEVEL_4 -> {
+            getNumberLevel(listDataLessonWithTopic[3].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
                 binding.ivStudy4.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_4_on))
                 binding.bgLessonNext4.makeVisible()
             }
-            LEVEL_5 -> {
+            getNumberLevel(listDataLessonWithTopic[4].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
@@ -185,7 +196,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 binding.ivStudy5.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5_on))
                 binding.bgLessonNext5.makeVisible()
             }
-            LEVEL_6 -> {
+            getNumberLevel(listDataLessonWithTopic[4].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true

@@ -1,13 +1,17 @@
 package com.mobiai.app.ui.fragment
 
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -56,9 +60,40 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             replaceFragment(BottomNavigationFragment.instance())
         }
         binding.btnShare.setOnClickListener{
-            takeScreenshot()
+           // takeScreenshot()
+            val bitmap =  createBitmapFromView()
+            Log.d("TAG", "initView: $bitmap")
+
         }
     }
+
+    fun shareBitmap(bitmap: Bitmap) {
+        val cachePath = File(requireContext().cacheDir, "images")
+        cachePath.mkdirs()
+        val imageFile = File(cachePath, "image.png")
+
+        try {
+            val fileOutputStream = FileOutputStream(imageFile)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            fileOutputStream.flush()
+            fileOutputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        // Tạo Uri cho tệp Bitmap tạm thời
+        val imageUri = FileProvider.getUriForFile(requireContext(), requireContext().packageName + ".fileprovider", imageFile)
+
+        // Tạo Intent để chia sẻ Bitmap
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "image/*"
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
+
+        // Khởi động Intent
+        requireContext().startActivity(Intent.createChooser(shareIntent, "Chia sẻ qua"))
+        // Xóa tệp tạm thời sau khi chia sẻ
+        imageFile.delete()
+    }
+
 
     override fun getBinding(
         inflater: LayoutInflater,
@@ -122,18 +157,22 @@ class ResultFragment : BaseFragment<FragmentResultBinding>() {
             }
         })
     }
-    private fun takeScreenshot() {
-        val rootView = view?.rootView
-        if (rootView != null) {
-            rootView.isDrawingCacheEnabled = true
-            val screenshot = Bitmap.createBitmap(rootView.drawingCache)
-            rootView.isDrawingCacheEnabled = false
-            val screenshotUri = saveScreenshot(screenshot)
-            shareScreenshot(screenshotUri)
-        }
+
+    fun createBitmapFromView(): Bitmap {
+        // Đảm bảo rằng kích thước của Bitmap phù hợp với kích thước của View
+        binding.lnResultFragment.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val width = binding.lnResultFragment.measuredWidth
+        val height = binding.lnResultFragment.measuredHeight
+
+        // Tạo Bitmap với kích thước của View
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+
+        // Gắn Bitmap với Canvas để vẽ View lên Bitmap
+        val canvas = Canvas(bitmap)
+        binding.lnResultFragment.layout(0, 0, width, height)
+        binding.lnResultFragment.draw(canvas)
+        return bitmap
     }
-
-
     private fun saveScreenshot(bitmap: Bitmap): Uri {
         val folder = File(
             Environment.getExternalStorageDirectory().toString() + "/Screenshots"

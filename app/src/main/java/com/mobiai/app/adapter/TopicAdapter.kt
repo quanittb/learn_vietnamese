@@ -74,6 +74,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                                             if (results.userName == SharedPreferenceUtils.emailLogin){
                                                 if (results.numberCorrect > 8 && results.lessonCode == question.lessonCode){
                                                     numberDone++
+                                                    Log.d("TAG", "onDataChange: ${results.userName}")
                                                 }
                                             }
                                         }
@@ -86,6 +87,7 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                                     Log.w("TAG", "Failed to read value.", error.toException())
                                 }
                             })
+                            if (numberDone!=0)
                             break
                         }
                     }
@@ -95,12 +97,6 @@ class TopicAdapter(val context : Context, val listener : OnLessonClickListener) 
                 Log.w("TAG", "Failed to read value.", error.toException())
             }
         })
-
-        // results
-
-
-
-
     }
 
     interface OnLessonClickListener {
