@@ -167,28 +167,28 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
 
     private fun enableWithItem(lessonCode:Int){
         when (lessonCode) {
-            LEVEL_1 -> {
+            getNumberLevel(listDataLessonWithTopic[0].lessonCode) -> {
                 binding.frStudy1.isEnabled = true
             }
-            LEVEL_2 -> {
+            getNumberLevel(listDataLessonWithTopic[1].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.ivStudy2.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5_on))
                 binding.bgLessonNext2.makeVisible()
             }
-            LEVEL_3 -> {
+            getNumberLevel(listDataLessonWithTopic[2].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.ivStudy3.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_3_on))
                 binding.bgLessonNext3.makeVisible()
             }
-            LEVEL_4 -> {
+            getNumberLevel(listDataLessonWithTopic[3].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
                 binding.ivStudy4.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_4_on))
                 binding.bgLessonNext4.makeVisible()
             }
-            LEVEL_5 -> {
+            getNumberLevel(listDataLessonWithTopic[4].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
@@ -196,7 +196,7 @@ class LessonFragment : BaseFragment<FragmentLessonBinding>() {
                 binding.ivStudy5.setImageDrawable(requireContext().resources.getDrawable(R.drawable.ic_study_5_on))
                 binding.bgLessonNext5.makeVisible()
             }
-            LEVEL_6 -> {
+            getNumberLevel(listDataLessonWithTopic[4].lessonCode) -> {
                 binding.frStudy2.isEnabled = true
                 binding.frStudy3.isEnabled = true
                 binding.frStudy4.isEnabled = true
