@@ -20,6 +20,7 @@ import com.mobiai.app.model.AnsweredQuestions
 import com.mobiai.app.model.Question
 import com.mobiai.app.model.User
 import com.mobiai.app.utils.gone
+import com.mobiai.app.utils.makeInvisible
 import com.mobiai.app.utils.visible
 import com.mobiai.base.basecode.extensions.LogD
 import com.mobiai.base.basecode.storage.SharedPreferenceUtils
@@ -49,7 +50,7 @@ class ItemQuestionFragment : BaseFragment<ItemQuestionBinding>() {
                 myQuestion = gson.fromJson(jsonString, Question::class.java)
             }
             if(myQuestion?.typeCode== TYPE_1){
-                binding.ivImageQuestion.gone()
+                binding.ivImageQuestion.makeInvisible()
             } else {
                 Glide.with(requireContext()).load(myQuestion?.urlImg).into(binding.ivImageQuestion)
                 binding.ivImageQuestion.visible()
